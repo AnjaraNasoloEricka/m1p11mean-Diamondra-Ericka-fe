@@ -19,6 +19,7 @@ import { RegisterComponent } from "./views/auth/register/register.component";
 import { IndexComponent } from "./views/index/index.component";
 import { LandingComponent } from "./views/landing/landing.component";
 import { ProfileComponent } from "./views/profile/profile.component";
+import { AuthGuard } from "./config/guard/auth.guard";
 
 const routes: Routes = [
   // admin views
@@ -32,6 +33,7 @@ const routes: Routes = [
       { path: "maps", component: MapsComponent },
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
     ],
+    canActivate : [AuthGuard]
   },
   // auth views
   {
