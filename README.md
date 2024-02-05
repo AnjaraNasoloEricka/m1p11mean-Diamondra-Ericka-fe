@@ -10,9 +10,9 @@ Start your development with a Free Tailwind CSS and Angular UI Kit and Admin. Le
 
 Notus Angular is Free and Open Source. It features multiple HTML and Angular elements and it comes with dynamic components for Angular.
 
-It is based on [Tailwind Starter Kit](https://www.creative-tim.com/learning-lab/tailwind-starter-kit/presentation?ref=na-github-readme) by Creative Tim, and it is build with both presentation pages, and pages for an admin dashboard.
+It is based on [Tailwind Starter Kit](https://www.creative-tim.com/learning-lab/tailwind-starter-kit/presentation?ref=na-github-readme) by Rambeloson Herilala Diamondra & Razafimbahiny Anjara Nasolo Ericka, and it is build with both presentation pages, and pages for an admin dashboard.
 
-Speed up your web development with a beautiful product made by <a href="https://creative-tim.com/" target="_blank">Creative Tim </a>.
+Speed up your web development with a beautiful product made by <a href="https://creative-tim.com/" target="_blank">Rambeloson Herilala Diamondra & Razafimbahiny Anjara Nasolo Ericka </a>.
 If you like bright and fresh colors, you will love this Free Tailwind CSS Template! It features a huge number of components that can help you create amazing websites.
 
 ### Get Started
@@ -105,7 +105,7 @@ The documentation for the Notus Angular is hosted at our <a href="https://www.cr
 
 ## Quick start
 
-- <a href="https://www.creative-tim.com/product/notus-angular?ref=na-github-readme" target="_blank">Download from Creative Tim</a>.
+- <a href="https://www.creative-tim.com/product/notus-angular?ref=na-github-readme" target="_blank">Download from Rambeloson Herilala Diamondra & Razafimbahiny Anjara Nasolo Ericka</a>.
 - <a href="https://github.com/creativetimofficial/notus-angular" target="_blank">Check it on Github</a>.
 
 ## Files and Folder
@@ -285,7 +285,7 @@ We use GitHub Issues as the official bug tracker for the Notus Angular. Here are
 
 ## Licensing
 
-- Copyright 2021 <a href="https://www.creative-tim.com/?ref=na-readme" target="_blank">Creative Tim</a>
+- Copyright 2021 <a href="https://www.creative-tim.com/?ref=na-readme" target="_blank">Rambeloson Herilala Diamondra & Razafimbahiny Anjara Nasolo Ericka</a>
 
 - Licensed under <a href="https://github.com/creativetimofficial/notus-angular/blob/main/LICENSE.md" target="_blank">MIT</a>
 
@@ -293,13 +293,13 @@ We use GitHub Issues as the official bug tracker for the Notus Angular. Here are
 
 - <a href="https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w" target="_blank">Tutorials</a>
 - <a href="https://www.creative-tim.com/affiliates/new?ref=na-readme" target="_blank">Affiliate Program</a> (earn money)
-- <a href="http://blog.creative-tim.com/?ref=na-readme" target="_blank">Blog Creative Tim</a>
-- <a href="https://www.creative-tim.com/templates/free?ref=na-readme" target="_blank">Free Products</a> from Creative Tim
-- <a href="https://www.creative-tim.com/templates/premium?ref=na-readme" target="_blank">Premium Products</a> from Creative Tim
-- <a href="https://www.creative-tim.com/templates/react?ref=na-readme" target="_blank">React Products</a> from Creative Tim
-- <a href="https://www.creative-tim.com/templates/angular?ref=na-readme" target="_blank">Angular Products</a> from Creative Tim
-- <a href="https://www.creative-tim.com/templates/vuejs?ref=na-readme" target="_blank">VueJS Products</a> from Creative Tim
-- <a href="https://www.creative-tim.com/templates?ref=na-readme" target="_blank">More products</a> from Creative Tim
+- <a href="http://blog.creative-tim.com/?ref=na-readme" target="_blank">Blog Rambeloson Herilala Diamondra & Razafimbahiny Anjara Nasolo Ericka</a>
+- <a href="https://www.creative-tim.com/templates/free?ref=na-readme" target="_blank">Free Products</a> from Rambeloson Herilala Diamondra & Razafimbahiny Anjara Nasolo Ericka
+- <a href="https://www.creative-tim.com/templates/premium?ref=na-readme" target="_blank">Premium Products</a> from Rambeloson Herilala Diamondra & Razafimbahiny Anjara Nasolo Ericka
+- <a href="https://www.creative-tim.com/templates/react?ref=na-readme" target="_blank">React Products</a> from Rambeloson Herilala Diamondra & Razafimbahiny Anjara Nasolo Ericka
+- <a href="https://www.creative-tim.com/templates/angular?ref=na-readme" target="_blank">Angular Products</a> from Rambeloson Herilala Diamondra & Razafimbahiny Anjara Nasolo Ericka
+- <a href="https://www.creative-tim.com/templates/vuejs?ref=na-readme" target="_blank">VueJS Products</a> from Rambeloson Herilala Diamondra & Razafimbahiny Anjara Nasolo Ericka
+- <a href="https://www.creative-tim.com/templates?ref=na-readme" target="_blank">More products</a> from Rambeloson Herilala Diamondra & Razafimbahiny Anjara Nasolo Ericka
 - Check our Bundles <a href="https://www.creative-tim.com/bundles?ref=na-readme" target="_blank">here</a>
 - Check our awesome builder <a href="https://www.creative-tim.com/builder/argon?ref=na-readme" target="_blank">here</a>
 - Check Tailwind Starter Kit, the project behind this product <a href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit/presentation?ref=na-readme" target="_blank">here</a>

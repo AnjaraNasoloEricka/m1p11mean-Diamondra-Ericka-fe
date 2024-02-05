@@ -7,7 +7,7 @@
 -->
 
 <!--
-Love Creative Tim? Do you need Angular, React, Vuejs or HTML? You can visit:
+Love Rambeloson Herilala Diamondra & Razafimbahiny Anjara Nasolo Ericka? Do you need Angular, React, Vuejs or HTML? You can visit:
 👉  https://www.creative-tim.com/bundles?ref=na-issue-template
 👉  https://www.creative-tim.com?ref=na-issue-template
 -->
