@@ -14,6 +14,7 @@ import { TablesComponent } from "./views/admin/tables/tables.component";
 // auth views
 import { LoginComponent } from "./views/auth/login/login.component";
 import { RegisterComponent } from "./views/auth/register/register.component";
+import { RegisterMessageComponent } from "./views/auth/register-message/register-message.component";
 
 // no layouts views
 import { IndexComponent } from "./views/index/index.component";
@@ -42,6 +43,8 @@ const routes: Routes = [
     children: [
       { path: "login", component: LoginComponent },
       { path: "register", component: RegisterComponent },
+      { path: "register-success", component: RegisterMessageComponent },
+      { path: "register-verify", component: RegisterMessageComponent },
       { path: "", redirectTo: "login", pathMatch: "full" },
     ],
   },

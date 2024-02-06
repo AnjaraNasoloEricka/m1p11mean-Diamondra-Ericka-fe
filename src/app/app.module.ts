@@ -18,6 +18,7 @@ import { TablesComponent } from "./views/admin/tables/tables.component";
 // auth views
 import { LoginComponent } from "./views/auth/login/login.component";
 import { RegisterComponent } from "./views/auth/register/register.component";
+import { RegisterMessageComponent } from "./views/auth/register-message/register-message.component";
 
 // no layouts views
 import { IndexComponent } from "./views/index/index.component";
@@ -86,6 +87,7 @@ import { ReactiveFormsModule } from "@angular/forms";
     TablesComponent,
     LoginComponent,
     RegisterComponent,
+    RegisterMessageComponent,
     IndexComponent,
     LandingComponent,
     ProfileComponent,

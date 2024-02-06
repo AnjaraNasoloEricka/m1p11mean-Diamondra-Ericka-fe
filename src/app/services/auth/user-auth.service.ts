@@ -7,7 +7,8 @@ import { URL } from '../../../environments/environment'
 })
 export class UserAuthService {
   url = URL.baseUrl;
-
+  message : string | undefined;
+  
   constructor(private http: HttpClient) { }
 
   public signIn(data: any): Promise<any> {
@@ -22,5 +23,19 @@ export class UserAuthService {
       );
     });
   }
+
+  public signUp(data: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.url + auth.signUp , data).subscribe(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
 }
 

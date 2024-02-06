@@ -1,5 +1,6 @@
 export const publicRoutes : string[] = [
-  "auth/login",
-  "auth/register",
+  "/users/signIn",
+  "/users/signUp",
+  "/users/register-success",
   "landing"
 ]
