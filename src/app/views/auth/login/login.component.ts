@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
     password: this.formBuiled.control("", [Validators.required, Validators.minLength(1)]),
   });
   error : string | undefined;
+  isLoading : boolean = false;
 
   constructor(private userAuthService : UserAuthService, private router: Router) {}
 
@@ -36,18 +37,21 @@ export class LoginComponent implements OnInit {
   /* check if form values are valid */
 
   handleLogin(){
+    this.isLoading = true;
     this.userAuthService.signIn(this.loginForm.value).then((response) => {
       if(response.status === 200){
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        this.router.navigate(["/dashboard"]);
+        this.router.navigate(["/admin/dashboard"]);
+        return;
       }
-      else{
-        this.error = response.message;
-      }
+      this.error = response.message;
     })
     .catch((error) => {
       this.error = error.error.message;
+    })
+    .finally(() => {
+      this.isLoading = false;
     });
   }
 
