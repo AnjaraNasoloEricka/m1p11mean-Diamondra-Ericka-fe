@@ -53,6 +53,7 @@ import { AuthInterceptor } from "./config/interceptor/auth/auth.interceptor";
 import { ResponseInterceptor } from "./config/interceptor/response/response.interceptor";
 import { ReactiveFormsModule } from "@angular/forms";
 
+
 @NgModule({
   declarations: [
     AppComponent,
