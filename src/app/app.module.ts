@@ -51,6 +51,8 @@ import { UserDropdownComponent } from "./components/dropdowns/user-dropdown/user
 
 import { AuthInterceptor } from "./config/interceptor/auth/auth.interceptor";
 import { ResponseInterceptor } from "./config/interceptor/response/response.interceptor";
+import { ReactiveFormsModule } from "@angular/forms";
+
 
 @NgModule({
   declarations: [
@@ -89,7 +91,7 @@ import { ResponseInterceptor } from "./config/interceptor/response/response.inte
     LandingComponent,
     ProfileComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },

@@ -12,7 +12,7 @@ export class UserAuthService {
 
   public signIn(data: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.post(this.url, data).subscribe(
+      this.http.post(this.url + auth.signIn , data).subscribe(
         (response) => {
           resolve(response);
         },
@@ -22,6 +22,5 @@ export class UserAuthService {
       );
     });
   }
-  
 }
 
