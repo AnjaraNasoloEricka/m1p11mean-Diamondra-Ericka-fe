@@ -37,5 +37,18 @@ export class UserAuthService {
     });
   }
 
+  public confirmRegister(token: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.url + auth.registerConfirmed + "/" + token).subscribe(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
 }
 

@@ -43,8 +43,8 @@ const routes: Routes = [
     children: [
       { path: "login", component: LoginComponent },
       { path: "register", component: RegisterComponent },
-      { path: "register-success", component: RegisterMessageComponent },
-      { path: "register-verify", component: RegisterMessageComponent },
+      { path: "register-success", component: RegisterMessageComponent },      
+      { path: "register-verify/:token", component: RegisterMessageComponent },
       { path: "", redirectTo: "login", pathMatch: "full" },
     ],
   },

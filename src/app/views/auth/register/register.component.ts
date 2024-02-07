@@ -50,8 +50,6 @@ export class RegisterComponent implements OnInit {
     this.userAuthService.signUp(this.signUpForm.value).then((response) => {
       if(response.status === 200){
         this.userAuthService.message = response.message;
-        console.log(response.message);
-        //send to register success page with response.message
         this.router.navigate(["auth/register-success"]);
 
       }
