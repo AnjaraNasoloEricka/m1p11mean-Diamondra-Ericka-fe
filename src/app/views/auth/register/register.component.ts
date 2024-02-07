@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
     phoneNumber: this.formBuiled.control("", [Validators.required, Validators.minLength(1), Validators.pattern("^[0-9]*$")]),
   });
   error : string | undefined;
+  isLoading : boolean = false;
 
   constructor(private userAuthService : UserAuthService, private router: Router) {}
 
@@ -47,6 +48,7 @@ export class RegisterComponent implements OnInit {
   /* check if form values are valid */
 
   handleSignUp(){
+    this.isLoading = true;
     this.userAuthService.signUp(this.signUpForm.value).then((response) => {
       if(response.status === 200){
         this.userAuthService.message = response.message;
@@ -59,6 +61,9 @@ export class RegisterComponent implements OnInit {
     })
     .catch((error) => {
       this.error = error.error.message;
+    })
+    .finally(() => {
+      this.isLoading = false;
     });
   }
 

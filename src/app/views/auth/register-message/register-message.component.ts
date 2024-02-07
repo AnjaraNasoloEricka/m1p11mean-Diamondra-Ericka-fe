@@ -11,8 +11,11 @@ export class RegisterMessageComponent implements OnInit {
 
     message : string | undefined;
     error : string | undefined;
+    isLoading : boolean = false;
 
     ngOnInit(): void {
+      this.isLoading = true;
+      try {
         this.route.params.subscribe(params => {
           if(params.token) {
             this.userAuthService.confirmRegister(params.token).then((response) => {
@@ -27,8 +30,12 @@ export class RegisterMessageComponent implements OnInit {
               this.error = error.error.message;
             });
           }
-            
-      this.message = this.userAuthService.message;
-    });
+        });
+        this.message = this.userAuthService.message;
+      } catch (error) {
+        this.error = error;
+      } finally {
+        this.isLoading = false;
+      }        
   }
 }
