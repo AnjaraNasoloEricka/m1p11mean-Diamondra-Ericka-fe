@@ -21,6 +21,7 @@ import { IndexComponent } from "./views/index/index.component";
 import { LandingComponent } from "./views/landing/landing.component";
 import { ProfileComponent } from "./views/profile/profile.component";
 import { AuthGuard } from "./config/guard/auth.guard";
+import { ServiceComponent } from "./views/service/service.component";
 
 const routes: Routes = [
   // admin views
@@ -32,6 +33,7 @@ const routes: Routes = [
       { path: "settings", component: SettingsComponent },
       { path: "tables", component: TablesComponent },
       { path: "maps", component: MapsComponent },
+      { path: "services", component : ServiceComponent},
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
     ],
     canActivate : [AuthGuard]
@@ -43,7 +45,7 @@ const routes: Routes = [
     children: [
       { path: "login", component: LoginComponent },
       { path: "register", component: RegisterComponent },
-      { path: "register-success", component: RegisterMessageComponent },      
+      { path: "register-success", component: RegisterMessageComponent },
       { path: "register-verify/:token", component: RegisterMessageComponent },
       { path: "", redirectTo: "login", pathMatch: "full" },
     ],

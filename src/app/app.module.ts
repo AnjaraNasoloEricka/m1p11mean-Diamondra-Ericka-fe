@@ -53,6 +53,8 @@ import { UserDropdownComponent } from "./components/dropdowns/user-dropdown/user
 import { AuthInterceptor } from "./config/interceptor/auth/auth.interceptor";
 import { ResponseInterceptor } from "./config/interceptor/response/response.interceptor";
 import { ReactiveFormsModule } from "@angular/forms";
+import { ServiceComponent } from "./views/service/service.component";
+import { ServiceModalComponent } from './components/modal/service.modal/service.modal.component';
 
 
 @NgModule({
@@ -92,6 +94,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     IndexComponent,
     LandingComponent,
     ProfileComponent,
+    ServiceComponent,
+    ServiceModalComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule],
   providers: [
