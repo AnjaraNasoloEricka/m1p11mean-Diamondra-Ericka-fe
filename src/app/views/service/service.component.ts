@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Services } from 'src/app/model/Services';
+import { ServicesService } from 'src/app/services/service/services.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -7,7 +9,26 @@ import Swal from 'sweetalert2';
 })
 export class ServiceComponent implements OnInit {
 
-  constructor() { }
+  allServices : Services[] = [];
+  isLoading : boolean = false;
+
+  constructor(private servicesService : ServicesService) {}
+
+  initServices(){
+    this.isLoading = true;
+    this.servicesService.getAll().then(
+      (response : any) => {
+        if(response.status !== 200) throw new Error(response);
+        this.allServices = response.data;
+      }
+    ).catch(
+      (error) => {
+        console.log(error);
+      }
+    ).finally(() => {
+      this.isLoading = false;
+    })
+  }
 
   showDeleteConfirmation() {
     Swal.fire({
@@ -33,6 +54,7 @@ export class ServiceComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.initServices();
   }
 
 }

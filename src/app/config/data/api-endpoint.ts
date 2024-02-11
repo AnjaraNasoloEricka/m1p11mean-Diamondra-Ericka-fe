@@ -6,3 +6,5 @@ export const auth = {
   registerSuccess : '/users/register-success',
   registerConfirmed : '/users/confirmRegister',
 }
+
+export const servicesEndpoint = 'services';

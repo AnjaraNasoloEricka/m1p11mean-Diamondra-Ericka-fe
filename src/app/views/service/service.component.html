@@ -13,21 +13,22 @@
       </div>
     </div>
     <div class="flex justify-between items-center">
-
     </div>
-
+  </div>
+  <div class="relative flex flex-col min-w-0 w-full mx-auto mb-6 shadow-lg rounded bg-white" >
+    <app-pageloader [isLoading]="isLoading"></app-pageloader>
   </div>
   <div
   class="relative flex flex-col min-w-0 break-words w-full mb-6">
     <div class="container px-4 mx-auto">
       <div class="flex flex-wrap">
-        <div class="w-full px-3 col-span-3 flex-1">
+        <div class="w-full px-4 col-span-4 flex-1 mt-4" *ngFor="let service of allServices">
           <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
             <img class="w-full h-21 object-cover" src="assets/img/cover1.jpg" alt="Sunset in the mountains">
             <div class="px-6 py-4">
-              <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
+              <div class="font-bold text-xl mb-2">{{ service?.name }}</div>
               <p class="text-gray-700 text-base">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.aesentium nihil.
+                {{ service.description }}
               </p>
             </div>
             <div class="px-6 pt-4 pb-2 flex justify-between">
@@ -38,58 +39,6 @@
             </div>
           </div>
         </div>
-        <div class="w-full px-3 col-span-3 flex-1">
-          <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
-            <img class="w-full h-21 object-cover" src="assets/img/cover1.jpg" alt="Sunset in the mountains">
-            <div class="px-6 py-4">
-              <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-              <p class="text-gray-700 text-base">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.aesentium nihil.
-              </p>
-            </div>
-            <div class="px-6 pt-4 pb-2 flex justify-between">
-              <app-service-modal buttonTypeValue="update"></app-service-modal>
-              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 text-sm rounded flex items-center"  (click)="showDeleteConfirmation()">
-                <i class="fas fa-trash-alt mr-2"></i> Delete
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="w-full px-3 col-span-3 flex-1">
-          <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
-            <img class="w-full h-21 object-cover" src="assets/img/cover1.jpg" alt="Sunset in the mountains">
-            <div class="px-6 py-4">
-              <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-              <p class="text-gray-700 text-base">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.aesentium nihil.
-              </p>
-            </div>
-            <div class="px-6 pt-4 pb-2 flex justify-between">
-              <app-service-modal buttonTypeValue="update"></app-service-modal>
-              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 text-sm rounded flex items-center" (click)="showDeleteConfirmation()">
-                <i class="fas fa-trash-alt mr-2"></i> Delete
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="w-full px-3 col-span-3 flex-1">
-          <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
-            <img class="w-full h-21 object-cover" src="assets/img/cover1.jpg" alt="Sunset in the mountains">
-            <div class="px-6 py-4">
-              <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-              <p class="text-gray-700 text-base">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.aesentium nihil.
-              </p>
-            </div>
-            <div class="px-6 pt-4 pb-2 flex justify-between">
-              <app-service-modal buttonTypeValue="update"></app-service-modal>
-              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 text-sm rounded flex items-center" (click)="showDeleteConfirmation()">
-                <i class="fas fa-trash-alt mr-2"></i> Delete
-              </button>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>

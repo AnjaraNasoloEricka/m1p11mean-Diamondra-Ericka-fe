@@ -55,6 +55,7 @@ import { ResponseInterceptor } from "./config/interceptor/response/response.inte
 import { ReactiveFormsModule } from "@angular/forms";
 import { ServiceComponent } from "./views/service/service.component";
 import { ServiceModalComponent } from './components/modal/service.modal/service.modal.component';
+import { PageloaderComponent } from './components/loader/pageloader/pageloader.component';
 
 
 @NgModule({
@@ -95,7 +96,8 @@ import { ServiceModalComponent } from './components/modal/service.modal/service.
     LandingComponent,
     ProfileComponent,
     ServiceComponent,
-    ServiceModalComponent
+    ServiceModalComponent,
+    PageloaderComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule],
   providers: [
