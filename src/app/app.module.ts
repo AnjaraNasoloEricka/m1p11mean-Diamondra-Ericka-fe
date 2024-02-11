@@ -20,6 +20,7 @@ import { LoginComponent } from "./views/auth/login/login.component";
 import { RegisterComponent } from "./views/auth/register/register.component";
 import { RegisterMessageComponent } from "./views/auth/register-message/register-message.component";
 
+
 // no layouts views
 import { IndexComponent } from "./views/index/index.component";
 import { LandingComponent } from "./views/landing/landing.component";
@@ -57,6 +58,9 @@ import { ServiceComponent } from "./views/service/service.component";
 import { ServiceModalComponent } from './components/modal/service.modal/service.modal.component';
 import { PageloaderComponent } from './components/loader/pageloader/pageloader.component';
 
+// employee views
+import { EmployeeComponent } from "./views/employee/employee.component";
+import { EmployeeModalComponent } from './components/modal/employee.modal/employee.modal.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +101,9 @@ import { PageloaderComponent } from './components/loader/pageloader/pageloader.c
     ProfileComponent,
     ServiceComponent,
     ServiceModalComponent,
-    PageloaderComponent
+    PageloaderComponent,
+    EmployeeComponent,
+    EmployeeModalComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule],
   providers: [
