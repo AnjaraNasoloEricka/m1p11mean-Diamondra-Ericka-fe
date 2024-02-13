@@ -30,7 +30,7 @@ export class ServiceComponent implements OnInit {
     })
   }
 
-  showDeleteConfirmation() {
+  showDeleteConfirmation(id : string) {
     Swal.fire({
       title: 'Are you sure?',
       text: 'You will not be able to recover this service!',
@@ -41,11 +41,26 @@ export class ServiceComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your service has been deleted.',
-          'success'
-        )
+        this.servicesService.delete(id).then(
+          (response : any) => {
+            if(response.status !== 200) throw new Error(response);
+            this.initServices();
+            Swal.fire(
+              'Deleted!',
+              'Your service has been deleted.',
+              'success'
+            );
+          }
+        ).catch(
+          (error) => {
+            Swal.fire(
+              'Error!',
+              error.message,
+              'error'
+            );
+          }
+        );
+
       }
     });
   }

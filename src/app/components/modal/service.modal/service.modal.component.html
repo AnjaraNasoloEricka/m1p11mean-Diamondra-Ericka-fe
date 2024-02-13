@@ -44,7 +44,7 @@
         <div class="mb-3 pt-0" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)">
           <label
             class="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
-            <span class="flex items-center space-x-2">
+            <span class="flex items-center space-x-2" *ngIf="!selectedFile">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -55,12 +55,12 @@
                     <span class="text-blue-600 underline">browse</span>
                 </span>
             </span>
+            <span class="flex items-center space-x-2" *ngIf="selectedFile">
+                <img *ngIf="selectedFile" [src]="selectedFile" alt="Selected file" class="mt-2 mx-auto" style="max-width: 100%;">
+            </span>
             <input type="file" name="file_upload" class="hidden" (change)="onFileSelected($event)">
           </label>
         </div>
-
-
-
       </div>
       <!--footer-->
       <div class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
@@ -75,3 +75,4 @@
   </div>
 </div>
 <div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+

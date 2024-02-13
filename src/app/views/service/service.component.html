@@ -15,6 +15,24 @@
     <div class="flex justify-between items-center">
     </div>
   </div>
+  <div class="container mx-auto mb-6 bg-white rounded shadow-lg relative flex flex-col min-w-0 w-full" *ngIf="!isLoading && (allServices.length === 0)">
+    <div class="px-4">
+      <div class="flex flex-wrap">
+        <div class="w-full col-span-4 mt-4 px-4 flex-1">
+          <div class="max-w-sm rounded overflow-hidden flex items-center">
+            <div class="px-6 py-4">
+              <div class="font-bold text-xl mb-2">No Services Found</div>
+              <p class="text-base text-gray-700">
+                No services found. Please add a service.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <div class="relative flex flex-col min-w-0 w-full mx-auto mb-6 shadow-lg rounded bg-white" >
     <app-pageloader [isLoading]="isLoading"></app-pageloader>
   </div>
@@ -33,7 +51,7 @@
             </div>
             <div class="px-6 pt-4 pb-2 flex justify-between">
               <app-service-modal buttonTypeValue="update"></app-service-modal>
-              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 text-sm rounded flex items-center"  (click)="showDeleteConfirmation()">
+              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 text-sm rounded flex items-center"  (click)="showDeleteConfirmation(service._id)">
                 <i class="fas fa-trash-alt mr-2"></i> Delete
               </button>
             </div>

@@ -57,7 +57,7 @@ export class CrudService<T> {
   }
 
   // delete
-  delete(id : number) {
+  delete(id : string) {
     return new Promise((resolve, reject) => {
       this.http.delete(`${this.baseUrl}/${this.crudEndpoint}/${id}`).subscribe(
         (response) => {
