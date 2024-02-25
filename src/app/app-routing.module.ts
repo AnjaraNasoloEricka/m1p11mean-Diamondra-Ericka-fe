@@ -3,6 +3,8 @@ import { Routes, RouterModule } from "@angular/router";
 
 // layouts
 import { AdminComponent } from "./layouts/admin/admin.component";
+import { EmployeeLayoutComponent } from "./layouts/employee-layout/employee-layout.component";
+import { CustomerComponent } from "./layouts/customer/customer.component";
 import { AuthComponent } from "./layouts/auth/auth.component";
 
 // admin views
@@ -33,6 +35,35 @@ const routes: Routes = [
       { path: "settings", component: SettingsComponent },
       { path: "tables", component: TablesComponent },
       { path: "maps", component: MapsComponent },
+      { path: "services", component : ServiceComponent},
+      { path: "employees", component : EmployeeComponent},
+      { path: "", redirectTo: "dashboard", pathMatch: "full" },
+    ],
+    canActivate : [AuthGuard]
+  },
+
+// employee views
+  {
+    path: "employee",
+    component: EmployeeLayoutComponent,
+    children: [
+      { path: "dashboard", component: DashboardComponent },
+      { path: "tables", component: TablesComponent },
+      { path: "maps", component: MapsComponent },
+      { path: "services", component : ServiceComponent},
+      { path: "employees", component : EmployeeComponent},
+      { path: "", redirectTo: "dashboard", pathMatch: "full" },
+    ],
+    canActivate : [AuthGuard]
+  },
+
+// customer views
+  {
+    path: "customer",
+    component: CustomerComponent,
+    children: [
+      { path: "dashboard", component: DashboardComponent },
+      { path: "tables", component: TablesComponent },
       { path: "services", component : ServiceComponent},
       { path: "employees", component : EmployeeComponent},
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
