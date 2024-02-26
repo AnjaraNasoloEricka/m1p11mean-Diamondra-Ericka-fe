@@ -37,8 +37,14 @@
   <div
   class="relative flex flex-col min-w-0 break-words w-full mb-6">
     <div class="container px-4 mx-auto">
+      <div class="relative">
+        <input type="text" placeholder="Search services..." class="w-full py-2 pr-10 pl-4 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+               (input)="search($event.target.value)">
+        <i class="absolute top-0 right-0 mt-3 mr-3 fas fa-search text-gray-400"></i>
+      </div>
+
       <div class="flex flex-wrap">
-        <div class="w-full lg:w-4/12 px-4 mt-4" *ngFor="let service of allServices">
+        <div class="w-full lg:w-4/12 px-4 mt-4" *ngFor="let service of getCurrentPageServices()">
           <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
             <div class="relative">
               <span class="absolute top-0 left-0 bg-black text-white px-2 py-1 text-xs">{{ service.duration * 1000 | date:'HH:mm' }}</span>
@@ -69,7 +75,17 @@
         </div>
       </div>
     </div>
+    <!-- Pagination -->
+    <div class="flex justify-center mt-4">
+      <button class="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded"
+              (click)="previousPage()" [disabled]="!isPreviousPageAvailable()" [class.opacity-50]="!isPreviousPageAvailable()">
+        Previous
+      </button>
+      <button class="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded ml-2"
+              (click)="nextPage()" [disabled]="!isNextPageAvailable()" [class.opacity-50]="!isNextPageAvailable()">
+        Next
+      </button>
+    </div>
+    <!-- Pagination -->
   </div>
-
-
 </div>

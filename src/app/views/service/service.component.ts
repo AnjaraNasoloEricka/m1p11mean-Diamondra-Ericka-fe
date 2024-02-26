@@ -13,6 +13,38 @@ export class ServiceComponent implements OnInit {
   allServices : Services[] = [];
   isLoading : boolean = false;
   serviceType : ServiceType[] = [];
+  filteredServices: Services[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 3;
+
+  search(keyword: string) {
+    this.filteredServices = this.allServices.filter(service =>
+      service.name.toLowerCase().includes(keyword.toLowerCase())
+    );
+    this.currentPage = 1;
+  }
+
+  getCurrentPageServices(): Services[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredServices.slice(startIndex, endIndex);
+  }
+
+  nextPage() {
+    this.currentPage++;
+  }
+
+  previousPage() {
+    this.currentPage--;
+  }
+
+  isPreviousPageAvailable(): boolean {
+    return this.currentPage > 1;
+  }
+
+  isNextPageAvailable(): boolean {
+    return this.currentPage < Math.ceil(this.filteredServices.length / this.itemsPerPage);
+  }
 
   getServiceTypeLabel(_id: string){
     return this.serviceType.find((serviceType) => serviceType._id === _id)?.label || "";
@@ -43,6 +75,7 @@ export class ServiceComponent implements OnInit {
       (response : any) => {
         if(response.status !== 200) throw new Error(response);
         this.allServices = response.data;
+        this.filteredServices = this.allServices;
       }
     ).catch(
       (error) => {}
