@@ -53,7 +53,7 @@ import { UserDropdownComponent } from "./components/dropdowns/user-dropdown/user
 
 import { AuthInterceptor } from "./config/interceptor/auth/auth.interceptor";
 import { ResponseInterceptor } from "./config/interceptor/response/response.interceptor";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ServiceComponent } from "./views/service/service.component";
 import { ServiceModalComponent } from './components/modal/service.modal/service.modal.component';
 import { PageloaderComponent } from './components/loader/pageloader/pageloader.component';
@@ -66,6 +66,8 @@ import { CustomerSidebarComponent } from './components/sidebars/customer-sidebar
 import { EmployeeSidebarComponent } from './components/sidebars/employee-sidebar/employee-sidebar.component';
 import { CustomerComponent } from './layouts/customer/customer.component';
 import { EmployeeLayoutComponent } from './layouts/employee-layout/employee-layout.component';
+import { ProfileEmployeeComponent } from "./views/employee/profile/profile.employee.component";
+import { CardEmployeeComponent } from "./components/cards/card-employee/card-employee.component";
 
 @NgModule({
   declarations: [
@@ -114,8 +116,10 @@ import { EmployeeLayoutComponent } from './layouts/employee-layout/employee-layo
     EmployeeSidebarComponent,
     CustomerComponent,
     EmployeeLayoutComponent,
+    ProfileEmployeeComponent,
+    CardEmployeeComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, FormsModule],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },
