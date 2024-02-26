@@ -70,6 +70,13 @@ import { ProfileEmployeeComponent } from "./views/employee/profile/profile.emplo
 import { CardEmployeeComponent } from "./components/cards/card-employee/card-employee.component";
 import { ScheduleModalComponent } from './components/modal/schedule.modal/schedule.modal/schedule.modal.component';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDateRangeInput } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { CommonModule } from "@angular/common";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,7 +133,12 @@ import { ScheduleModalComponent } from './components/modal/schedule.modal/schedu
     AppRoutingModule, 
     HttpClientModule, 
     ReactiveFormsModule, 
-    FormsModule
+    FormsModule,
+    CommonModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    BrowserAnimationsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

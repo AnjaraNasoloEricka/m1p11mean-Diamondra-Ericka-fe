@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ButtonType, buttonTypesData } from 'src/app/config/data/constant';
+import { Day } from 'src/app/model/Type';
 
 @Component({
   selector: 'app-schedule-modal',
@@ -13,12 +14,18 @@ export class ScheduleModalComponent implements OnInit {
 
   buttonType : ButtonType;
   error : string | undefined;
+  showDayDropdown : boolean = false;
 
-  constructor() { }
+  allDays: Day[] = Object.values(Day);
+
+  constructor() {}
+
+  toogleDayDropdown(){
+    this.showDayDropdown = !this.showDayDropdown; 
+  }
 
   ngOnInit(): void {
     this.buttonType = buttonTypesData.find((data) => data.type === this.buttonTypeValue);
-    console.log(this.buttonType)
   }
 
   toggleModal(){
