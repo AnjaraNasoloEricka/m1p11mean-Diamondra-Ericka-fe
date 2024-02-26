@@ -1,6 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ButtonType, buttonTypesData } from 'src/app/config/data/constant';
+import { ServiceType } from 'src/app/model/Type';
+import { ServicesService } from 'src/app/services/service/services.service';
+import { UtilsService } from 'src/app/services/utils/utils.service';
 
 @Component({
   selector: 'app-service-modal',
@@ -15,30 +18,42 @@ export class ServiceModalComponent implements OnInit {
 
   @Input() buttonTypeValue : string = "create";
 
+  @Output() refreshData: EventEmitter<void> = new EventEmitter<void>();
+
   buttonType : ButtonType;
 
   error : string | undefined;
 
-  selectedFile: string | null = null;
+  imageUrl: string | undefined = undefined;
+
+  formData : FormData = new FormData();
 
   serviceForm : FormGroup = new FormGroup({
     name : this.formBuilder.control("", [Validators.required, Validators.minLength(1)]),
     price : this.formBuilder.control(0, [Validators.required, Validators.min(1)]),
     description : this.formBuilder.control("", [Validators.required, Validators.minLength(1)]),
     duration : this.formBuilder.control(0, [Validators.required, Validators.min(1)]),
-    commissionRate : this.formBuilder.control(0, [Validators.required, Validators.min(1)])
+    commissionRate : this.formBuilder.control(0, [Validators.required, Validators.min(1)]),
+    serviceType : this.formBuilder.control("", [Validators.required])
   });
 
+  serviceType : ServiceType[] = [];
+  isLoading : boolean = false;
 
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.selectedFile = reader.result as string;
-      };
-    }
+  constructor(private servicesService : ServicesService, private utilsService : UtilsService) { }
+
+  initServiceType(){
+    this.servicesService.getServicesType().then(
+      (response : any) => {
+        if(response.status !== 200) throw new Error(response);
+        this.serviceType = response.data;
+        (this.serviceType.length > 0) && this.serviceForm.controls.serviceType.setValue(this.serviceType[0]._id);
+      }
+    ).catch(
+      (error) => {
+        this.error = error;
+      }
+    )
   }
 
   checkFormValidity(){
@@ -58,31 +73,87 @@ export class ServiceModalComponent implements OnInit {
       if ((this.serviceForm.controls.name.errors) || (this.serviceForm.controls.name.errors?.minlength)) {
         this.error = "Name is required";
       }
+      return;
     }
+    if(!this.imageUrl){
+      this.error = "Image is required";
+      return;
+    }
+    this.error = undefined;
+    this.isLoading = true;
+    this.saveService();
   }
 
-  constructor() { }
+  saveService(){
+    const data = this.serviceForm.value;
+    Object.keys(data).forEach(key => this.formData.append(key, data[key]));
+    this.servicesService.insertService(this.formData).then(
+      (response : any) => {
+        if(response.status !== 200) throw new Error(response);
+        this.isLoading = false;
+        this.toggleModal();
+        this.refreshData.emit();
+      }
+    ).catch(
+      (error) => {
+        Object.keys(data).forEach(key => this.formData.delete(key));
+        this.error = error;
+        this.isLoading = false;
+
+      }
+    )
+  }
 
   ngOnInit(): void {
     this.buttonType = buttonTypesData.find((data) => data.type === this.buttonTypeValue);
+    this.initServiceType();
   }
 
   toggleModal(){
     this.showModal = !this.showModal;
   }
 
-  onDrop(event: any) {
-    event.preventDefault();
-    this.onFileSelected(event);
+  onDragStart(event: DragEvent) {
+    event.dataTransfer?.setData('text/plain', 'image');
   }
 
-  onDragOver(event: any) {
+  onDragOver(event: DragEvent) {
     event.preventDefault();
   }
 
-  onDragLeave(event: any) {
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    const data = event.dataTransfer?.getData('text/plain');
+    const file = event.dataTransfer?.files[0];
+    this.handleFile(file);
+  }
+
+  onDragLeave(event: DragEvent) {
     event.preventDefault();
   }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    this.handleFile(file);
+  }
+
+  handleFile(file: File | undefined) {
+    if (file && file.type.startsWith('image/')) {
+      (this.formData.has('file')) && this.formData.delete('file');
+      (file) && this.formData.append('file', file);
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageUrl = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  clearImage() {
+    this.imageUrl = undefined;
+  }
+
 
 
 }

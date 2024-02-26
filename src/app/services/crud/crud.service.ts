@@ -29,7 +29,7 @@ export class CrudService<T> {
   }
 
   // Insert
-  insert(data : T) {
+  insert(data : T | FormData) {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.baseUrl}/${this.crudEndpoint}`, data).subscribe(
         (response) => {

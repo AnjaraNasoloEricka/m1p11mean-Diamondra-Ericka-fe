@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Services } from 'src/app/model/Services';
+import { ServiceType } from 'src/app/model/Type';
 import { ServicesService } from 'src/app/services/service/services.service';
 import Swal from 'sweetalert2';
 
@@ -13,6 +14,10 @@ export class ServiceComponent implements OnInit {
   isLoading : boolean = false;
 
   constructor(private servicesService : ServicesService) {}
+
+  test(){
+    console.log("tesstt")
+  }
 
   initServices(){
     this.isLoading = true;
