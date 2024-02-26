@@ -68,6 +68,7 @@ import { CustomerComponent } from './layouts/customer/customer.component';
 import { EmployeeLayoutComponent } from './layouts/employee-layout/employee-layout.component';
 import { ProfileEmployeeComponent } from "./views/employee/profile/profile.employee.component";
 import { CardEmployeeComponent } from "./components/cards/card-employee/card-employee.component";
+import { ScheduleModalComponent } from './components/modal/schedule.modal/schedule.modal/schedule.modal.component';
 
 @NgModule({
   declarations: [
@@ -117,9 +118,16 @@ import { CardEmployeeComponent } from "./components/cards/card-employee/card-emp
     CustomerComponent,
     EmployeeLayoutComponent,
     ProfileEmployeeComponent,
-    CardEmployeeComponent
+    CardEmployeeComponent,
+    ScheduleModalComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, FormsModule],
+  imports: [
+    BrowserModule, 
+    AppRoutingModule, 
+    HttpClientModule, 
+    ReactiveFormsModule, 
+    FormsModule
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },

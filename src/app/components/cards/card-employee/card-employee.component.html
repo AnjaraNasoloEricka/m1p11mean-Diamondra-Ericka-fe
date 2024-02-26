@@ -4,9 +4,7 @@
   <div class="rounded-t bg-white mb-0 px-6 py-6">
     <div class="text-center flex justify-between">
       <h6 class="text-blueGray-700 text-xl font-bold">Employee Schedule</h6>
-      <button class="bg-lightBlue-500 text-white font-bold uppercase text-xs px-4 py-2 hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-        <i class="fas fa-plus"></i>
-      </button>
+      <app-schedule-modal></app-schedule-modal>
     </div>
   </div>
   <div>
@@ -70,9 +68,7 @@
                 {{ schedule.day }}
               </td>
               <td>
-                <button class="bg-none text-orange-500 font-bold uppercase text-2xs px-4 py-2 hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                  <i class="fas fa-edit"></i>
-                </button>
+                <app-schedule-modal buttonTypeValue="update"></app-schedule-modal>
               </td>
             </tr>
           </tbody>
