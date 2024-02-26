@@ -61,6 +61,11 @@ import { PageloaderComponent } from './components/loader/pageloader/pageloader.c
 // employee views
 import { EmployeeComponent } from "./views/employee/employee.component";
 import { EmployeeModalComponent } from './components/modal/employee.modal/employee.modal.component';
+import { AdminSidebarComponent } from './components/sidebars/admin-sidebar/admin-sidebar.component';
+import { CustomerSidebarComponent } from './components/sidebars/customer-sidebar/customer-sidebar.component';
+import { EmployeeSidebarComponent } from './components/sidebars/employee-sidebar/employee-sidebar.component';
+import { CustomerComponent } from './layouts/customer/customer.component';
+import { EmployeeLayoutComponent } from './layouts/employee-layout/employee-layout.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +109,11 @@ import { EmployeeModalComponent } from './components/modal/employee.modal/employ
     PageloaderComponent,
     EmployeeComponent,
     EmployeeModalComponent,
+    AdminSidebarComponent,
+    CustomerSidebarComponent,
+    EmployeeSidebarComponent,
+    CustomerComponent,
+    EmployeeLayoutComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule],
   providers: [

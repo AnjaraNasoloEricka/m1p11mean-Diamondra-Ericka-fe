@@ -5,7 +5,7 @@ import { URL } from 'src/environments/environment';
 
 export class CrudService<T> {
 
-  private baseUrl = URL.baseUrl;
+  baseUrl = URL.baseUrl;
   crudEndpoint : string;
   http : HttpClient;
 
