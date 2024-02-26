@@ -5,8 +5,11 @@ import { Injectable } from "@angular/core";
 })
 export class UtilsService {
 
-  hourToSecond(hour : string) : number{
-    let time = hour.split(":");
-    return (parseInt(time[0]) * 3600) + (parseInt(time[1]) * 60);
+  convertTimeToStringHour(time: number): string {
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    return formattedTime;
   }
+
 }

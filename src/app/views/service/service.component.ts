@@ -12,12 +12,30 @@ export class ServiceComponent implements OnInit {
 
   allServices : Services[] = [];
   isLoading : boolean = false;
+  serviceType : ServiceType[] = [];
+
+  getServiceTypeLabel(_id: string){
+    return this.serviceType.find((serviceType) => serviceType._id === _id)?.label || "";
+  }
+
+  initServiceType(){
+    this.servicesService.getServicesType().then(
+      (response : any) => {
+        if(response.status !== 200) throw new Error(response);
+        this.serviceType = response.data;
+      }
+    ).catch(
+      (error) => {
+        Swal.fire(
+          'Error!',
+          error.message,
+          'error'
+        );
+      }
+    )
+  }
 
   constructor(private servicesService : ServicesService) {}
-
-  test(){
-    console.log("tesstt")
-  }
 
   initServices(){
     this.isLoading = true;
@@ -27,9 +45,7 @@ export class ServiceComponent implements OnInit {
         this.allServices = response.data;
       }
     ).catch(
-      (error) => {
-        console.log(error);
-      }
+      (error) => {}
     ).finally(() => {
       this.isLoading = false;
     })
@@ -74,6 +90,7 @@ export class ServiceComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.initServiceType();
     this.initServices();
   }
 

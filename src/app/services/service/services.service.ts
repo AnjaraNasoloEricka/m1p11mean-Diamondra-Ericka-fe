@@ -42,4 +42,19 @@ export class ServicesService extends CrudService<Services> {
       );
     });
   }
+
+  updateService(formData: FormData, id: string) {
+    return new Promise((resolve, reject) => {
+      const headers = new HttpHeaders();
+      headers.append('Content-Type', 'multipart/form-data');
+      this.http.put(`${this.url}/${servicesEndpoint}/${id}`, formData, { headers }).subscribe(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
 }

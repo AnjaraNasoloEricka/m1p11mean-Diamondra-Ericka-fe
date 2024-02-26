@@ -93,7 +93,7 @@ class="flex-col min-w-0 break-words overflow-x-hidden w-3/4 overflow-y-auto fixe
           >
             Type of service
           </label>
-          <select id="selectInput" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+          <select id="selectInput" formControlName="serviceType" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
             <option *ngFor="let type of serviceType" [value]="type._id">{{ type.label }}</option>
           </select>
         </div>

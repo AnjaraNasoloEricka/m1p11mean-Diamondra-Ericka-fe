@@ -1,6 +1,8 @@
+import { identifierModuleUrl } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ButtonType, buttonTypesData } from 'src/app/config/data/constant';
+import { Services } from 'src/app/model/Services';
 import { ServiceType } from 'src/app/model/Type';
 import { ServicesService } from 'src/app/services/service/services.service';
 import { UtilsService } from 'src/app/services/utils/utils.service';
@@ -20,6 +22,8 @@ export class ServiceModalComponent implements OnInit {
 
   @Output() refreshData: EventEmitter<void> = new EventEmitter<void>();
 
+  @Input() service : Services | undefined = undefined;
+
   buttonType : ButtonType;
 
   error : string | undefined;
@@ -32,29 +36,27 @@ export class ServiceModalComponent implements OnInit {
     name : this.formBuilder.control("", [Validators.required, Validators.minLength(1)]),
     price : this.formBuilder.control(0, [Validators.required, Validators.min(1)]),
     description : this.formBuilder.control("", [Validators.required, Validators.minLength(1)]),
-    duration : this.formBuilder.control(0, [Validators.required, Validators.min(1)]),
+    duration : this.formBuilder.control(0, [Validators.required]),
     commissionRate : this.formBuilder.control(0, [Validators.required, Validators.min(1)]),
-    serviceType : this.formBuilder.control("", [Validators.required])
+    serviceType : this.formBuilder.control("", [Validators.required, Validators.minLength(1)])
   });
 
-  serviceType : ServiceType[] = [];
+  @Input() serviceType : ServiceType[] = [];
   isLoading : boolean = false;
 
-  constructor(private servicesService : ServicesService, private utilsService : UtilsService) { }
-
-  initServiceType(){
-    this.servicesService.getServicesType().then(
-      (response : any) => {
-        if(response.status !== 200) throw new Error(response);
-        this.serviceType = response.data;
-        (this.serviceType.length > 0) && this.serviceForm.controls.serviceType.setValue(this.serviceType[0]._id);
-      }
-    ).catch(
-      (error) => {
-        this.error = error;
-      }
-    )
+  initDataForUpdate(){
+    if(this.service){
+      this.serviceForm.controls.name.setValue(this.service.name);
+      this.serviceForm.controls.price.setValue(this.service.price);
+      this.serviceForm.controls.description.setValue(this.service.description);
+      this.serviceForm.controls.duration.setValue(this.utilsService.convertTimeToStringHour(this.service.duration));
+      this.serviceForm.controls.commissionRate.setValue(this.service.commissionRate);
+      this.serviceForm.controls.serviceType.setValue(this.service.serviceType);
+      this.imageUrl = this.service.imageUrl;
+    }
   }
+
+  constructor(private servicesService : ServicesService, private utilsService : UtilsService) { }
 
   checkFormValidity(){
     if(this.serviceForm.invalid){
@@ -73,6 +75,9 @@ export class ServiceModalComponent implements OnInit {
       if ((this.serviceForm.controls.name.errors) || (this.serviceForm.controls.name.errors?.minlength)) {
         this.error = "Name is required";
       }
+      if ((this.serviceForm.controls.serviceType.errors) || (this.serviceForm.controls.serviceType.errors?.minlength)) {
+        this.error = "Service type is required";
+      }
       return;
     }
     if(!this.imageUrl){
@@ -81,7 +86,7 @@ export class ServiceModalComponent implements OnInit {
     }
     this.error = undefined;
     this.isLoading = true;
-    this.saveService();
+    (this.service) ? this.updateService() : this.saveService();
   }
 
   saveService(){
@@ -97,7 +102,27 @@ export class ServiceModalComponent implements OnInit {
     ).catch(
       (error) => {
         Object.keys(data).forEach(key => this.formData.delete(key));
-        this.error = error;
+        this.error = error.message;
+        this.isLoading = false;
+
+      }
+    )
+  }
+
+  updateService(){
+    const data = this.serviceForm.value;
+    Object.keys(data).forEach(key => this.formData.append(key, data[key]));
+    this.servicesService.updateService(this.formData,this.service._id).then(
+      (response : any) => {
+        if(response.status !== 200) throw new Error(response);
+        this.isLoading = false;
+        this.toggleModal();
+        this.refreshData.emit();
+      }
+    ).catch(
+      (error) => {
+        Object.keys(data).forEach(key => this.formData.delete(key));
+        this.error = error.message;
         this.isLoading = false;
 
       }
@@ -106,7 +131,7 @@ export class ServiceModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.buttonType = buttonTypesData.find((data) => data.type === this.buttonTypeValue);
-    this.initServiceType();
+    this.initDataForUpdate();
   }
 
   toggleModal(){
