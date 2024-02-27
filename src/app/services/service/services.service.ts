@@ -18,7 +18,7 @@ export class ServicesService extends CrudService<Services> {
   // Get all types
   getAllTypes() {
     return new Promise((resolve, reject) => {
-      this.http.get(`${this.baseUrl}/${this.crudEndpoint}`+'/:types').subscribe(
+      this.http.get(`${this.baseUrl}/${this.crudEndpoint}`+'/types').subscribe(
         (response) => {
           resolve(response);
         },

@@ -1,4 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from "@angular/core";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
@@ -58,6 +59,8 @@ import { ServiceComponent } from "./views/service/service.component";
 import { ServiceModalComponent } from './components/modal/service.modal/service.modal.component';
 import { PageloaderComponent } from './components/loader/pageloader/pageloader.component';
 
+import { CommonModule } from '@angular/common';
+
 // employee views
 import { EmployeeComponent } from "./views/employee/employee.component";
 import { EmployeeModalComponent } from './components/modal/employee.modal/employee.modal.component';
@@ -66,6 +69,8 @@ import { CustomerSidebarComponent } from './components/sidebars/customer-sidebar
 import { EmployeeSidebarComponent } from './components/sidebars/employee-sidebar/employee-sidebar.component';
 import { CustomerComponent } from './layouts/customer/customer.component';
 import { EmployeeLayoutComponent } from './layouts/employee-layout/employee-layout.component';
+import { AppointmentComponent } from './views/appointment/appointment.component';
+import { AppointmentModalComponent } from './components/modal/appointment.modal/appointment.modal.component';
 import { ProfileEmployeeComponent } from "./views/employee/profile/profile.employee.component";
 import { CardEmployeeComponent } from "./components/cards/card-employee/card-employee.component";
 import { ScheduleModalComponent } from './components/modal/schedule.modal/schedule.modal/schedule.modal.component';
@@ -74,8 +79,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDateRangeInput } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
-import { CommonModule } from "@angular/common";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -124,21 +127,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     EmployeeSidebarComponent,
     CustomerComponent,
     EmployeeLayoutComponent,
+    AppointmentComponent,
+    AppointmentModalComponent,
     ProfileEmployeeComponent,
     CardEmployeeComponent,
-    ScheduleModalComponent
+    ScheduleModalComponent,
   ],
   imports: [
-    BrowserModule, 
-    AppRoutingModule, 
-    HttpClientModule, 
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
     ReactiveFormsModule, 
-    FormsModule,
     CommonModule,
+    FormsModule,
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
-    BrowserAnimationsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

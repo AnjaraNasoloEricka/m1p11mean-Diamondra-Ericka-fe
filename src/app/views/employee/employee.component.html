@@ -13,10 +13,13 @@
             </div>
         </div>
     </div>
+    <div class="relative flex flex-col min-w-0 w-full mx-auto mb-6 shadow-lg rounded bg-white" >
+        <app-pageloader [isLoading]="isLoading"></app-pageloader>
+    </div>
     <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
         <div class="block w-full overflow-x-auto">
             <!-- Projects table -->
-            <table class="items-center w-full bg-transparent border-collapse">
+            <table class="items-center w-full bg-transparent border-collapse" [hidden]="isLoading">
             <thead>
                 <tr>
                 <th
@@ -70,24 +73,10 @@
                 >
                     <div class="flex">
                     <img
-                        src="assets/img/team-1-800x800.jpg"
+                        *ngFor="let service of employee.services"
+                        src="{{service.image}}"
                         alt="..."
                         class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
-                    />
-                    <img
-                        src="assets/img/team-2-800x800.jpg"
-                        alt="..."
-                        class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                    />
-                    <img
-                        src="assets/img/team-3-800x800.jpg"
-                        alt="..."
-                        class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
-                    />
-                    <img
-                        src="assets/img/team-4-470x470.png"
-                        alt="..."
-                        class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow -ml-4"
                     />
                     </div>
                 </td>

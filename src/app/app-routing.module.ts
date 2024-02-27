@@ -23,9 +23,12 @@ import { IndexComponent } from "./views/index/index.component";
 import { LandingComponent } from "./views/landing/landing.component";
 import { ProfileComponent } from "./views/profile/profile.component";
 import { AuthGuard } from "./config/guard/auth.guard";
+
 import { ServiceComponent } from "./views/service/service.component";
 import { EmployeeComponent } from "./views/employee/employee.component";
+import { AppointmentComponent } from "./views/appointment/appointment.component";
 import { ProfileEmployeeComponent } from "./views/employee/profile/profile.employee.component";
+
 const routes: Routes = [
   // admin views
   {
@@ -51,9 +54,9 @@ const routes: Routes = [
     children: [
       { path: "dashboard", component: DashboardComponent },
       { path: "tables", component: TablesComponent },
-      { path: "maps", component: MapsComponent },
       { path: "services", component : ServiceComponent},
-      { path: "employees", component : EmployeeComponent},
+      { path: "appointments", component : AppointmentComponent},
+      { path: "settings", component: SettingsComponent },
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
     ],
     canActivate : [AuthGuard]
@@ -68,6 +71,8 @@ const routes: Routes = [
       { path: "tables", component: TablesComponent },
       { path: "services", component : ServiceComponent},
       { path: "employees", component : EmployeeComponent},
+      { path: "appointments", component : AppointmentComponent},
+      { path: "settings", component: SettingsComponent },
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
     ],
     canActivate : [AuthGuard]
