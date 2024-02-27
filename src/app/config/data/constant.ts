@@ -27,3 +27,5 @@ export const buttonTypesData : ButtonType[] = [
     color : "orange"
   }
 ];
+
+export const UTC_Value = 3;

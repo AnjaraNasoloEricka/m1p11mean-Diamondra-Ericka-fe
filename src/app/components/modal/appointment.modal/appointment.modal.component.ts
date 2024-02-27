@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { th } from 'date-fns/locale';
 import { ButtonType, buttonTypesData } from 'src/app/config/data/constant';
 import { ServicesService } from 'src/app/services/service/services.service';
 
