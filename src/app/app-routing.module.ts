@@ -27,6 +27,7 @@ import { AuthGuard } from "./config/guard/auth.guard";
 import { ServiceComponent } from "./views/service/service.component";
 import { EmployeeComponent } from "./views/employee/employee.component";
 import { AppointmentComponent } from "./views/appointment/appointment.component";
+import { ProfileEmployeeComponent } from "./views/employee/profile/profile.employee.component";
 
 const routes: Routes = [
   // admin views
@@ -40,6 +41,7 @@ const routes: Routes = [
       { path: "maps", component: MapsComponent },
       { path: "services", component : ServiceComponent},
       { path: "employees", component : EmployeeComponent},
+      { path: "profile", component : ProfileEmployeeComponent},
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
     ],
     canActivate : [AuthGuard]

@@ -1,0 +1,87 @@
+<div
+  class="flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0"
+>
+  <div class="rounded-t bg-white mb-0 px-6 py-6">
+    <div class="text-center flex justify-between">
+      <h6 class="text-blueGray-700 text-xl font-bold">Employee Schedule</h6>
+      <app-schedule-modal></app-schedule-modal>
+    </div>
+  </div>
+  <div>
+    <div class="flex flex-wrap">
+      <div class="overflow-x-auto">
+        <table class="items-center w-full bg-transparent border-collapse">
+          <thead>
+            <tr class="bg-gray-200">
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                Start Date
+              </th>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                End Date
+              </th>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                Start Hour
+              </th>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                End Hour
+              </th>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                Days
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let schedule of allSchedules">
+              <td
+                class="border-t-0 px-6 align-middle text-emerald-400 font-bold border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                {{ schedule.startDate | date: 'shortDate' }}
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle text-emerald-400 font-bold  border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                {{ schedule.endDate | date: 'shortDate'}}
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                {{ (schedule.startHour * 1000) | date: 'shortTime' }}
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                {{ (schedule.endHour * 1000) | date: 'shortTime'}}
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle font-bold border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                {{ schedule.day }}
+              </td>
+              <td>
+                <app-schedule-modal buttonTypeValue="update"></app-schedule-modal>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="w-full px-4 py-3 flex items-center justify-between border-t bg-white sm:px-6">
+        <button class="relative inline-flex items-center px-4 py-2 border border-emerald-300 text-sm font-medium rounded-md text-white bg-emerald-500 hover:bg-emerald-600">
+          Previous
+        </button>
+        <button class="ml-3 relative inline-flex items-center px-4 py-2 border border-emerald-300 text-sm font-medium rounded-md text-white bg-emerald-500 hover:bg-emerald-600">
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

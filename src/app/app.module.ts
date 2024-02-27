@@ -54,17 +54,12 @@ import { UserDropdownComponent } from "./components/dropdowns/user-dropdown/user
 
 import { AuthInterceptor } from "./config/interceptor/auth/auth.interceptor";
 import { ResponseInterceptor } from "./config/interceptor/response/response.interceptor";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ServiceComponent } from "./views/service/service.component";
 import { ServiceModalComponent } from './components/modal/service.modal/service.modal.component';
 import { PageloaderComponent } from './components/loader/pageloader/pageloader.component';
 
-import { SchedulerModule  } from 'angular-calendar-scheduler';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 // employee views
 import { EmployeeComponent } from "./views/employee/employee.component";
@@ -76,6 +71,14 @@ import { CustomerComponent } from './layouts/customer/customer.component';
 import { EmployeeLayoutComponent } from './layouts/employee-layout/employee-layout.component';
 import { AppointmentComponent } from './views/appointment/appointment.component';
 import { AppointmentModalComponent } from './components/modal/appointment.modal/appointment.modal.component';
+import { ProfileEmployeeComponent } from "./views/employee/profile/profile.employee.component";
+import { CardEmployeeComponent } from "./components/cards/card-employee/card-employee.component";
+import { ScheduleModalComponent } from './components/modal/schedule.modal/schedule.modal/schedule.modal.component';
+
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDateRangeInput } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -135,11 +138,12 @@ import { AppointmentModalComponent } from './components/modal/appointment.modal/
     ReactiveFormsModule, 
     CommonModule,
     FormsModule,
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
-    SchedulerModule.forRoot({ locale: 'en', headerDateFormat: 'daysRange' }),
+    ProfileEmployeeComponent,
+    CardEmployeeComponent,
+    ScheduleModalComponent,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
