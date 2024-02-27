@@ -1,4 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from "@angular/core";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
@@ -58,6 +59,13 @@ import { ServiceComponent } from "./views/service/service.component";
 import { ServiceModalComponent } from './components/modal/service.modal/service.modal.component';
 import { PageloaderComponent } from './components/loader/pageloader/pageloader.component';
 
+import { SchedulerModule  } from 'angular-calendar-scheduler';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
 // employee views
 import { EmployeeComponent } from "./views/employee/employee.component";
 import { EmployeeModalComponent } from './components/modal/employee.modal/employee.modal.component';
@@ -66,6 +74,8 @@ import { CustomerSidebarComponent } from './components/sidebars/customer-sidebar
 import { EmployeeSidebarComponent } from './components/sidebars/employee-sidebar/employee-sidebar.component';
 import { CustomerComponent } from './layouts/customer/customer.component';
 import { EmployeeLayoutComponent } from './layouts/employee-layout/employee-layout.component';
+import { AppointmentComponent } from './views/appointment/appointment.component';
+import { AppointmentModalComponent } from './components/modal/appointment.modal/appointment.modal.component';
 
 @NgModule({
   declarations: [
@@ -114,8 +124,23 @@ import { EmployeeLayoutComponent } from './layouts/employee-layout/employee-layo
     EmployeeSidebarComponent,
     CustomerComponent,
     EmployeeLayoutComponent,
+    AppointmentComponent,
+    AppointmentModalComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule, 
+    CommonModule,
+    FormsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+    SchedulerModule.forRoot({ locale: 'en', headerDateFormat: 'daysRange' }),
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },

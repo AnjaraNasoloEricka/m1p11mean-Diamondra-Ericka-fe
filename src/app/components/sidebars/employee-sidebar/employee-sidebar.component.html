@@ -81,7 +81,7 @@
       <ul class="md:flex-col md:min-w-full flex flex-col list-none">
         <li class="items-center">
           <a
-            [routerLink]="['/admin/dashboard']"
+            [routerLink]="['/employee/dashboard']"
             class="text-xs uppercase py-3 font-bold block"
             routerLinkActive
             #adminDashboard="routerLinkActive"
@@ -103,7 +103,7 @@
 
         <li class="items-center">
           <a
-            [routerLink]="['/admin/services']"
+            [routerLink]="['/employee/appointments']"
             class="text-xs uppercase py-3 font-bold block"
             routerLinkActive
           >
@@ -116,7 +116,7 @@
 
         <li class="items-center">
           <a
-            [routerLink]="['/admin/settings']"
+            [routerLink]="['/employee/settings']"
             class="text-xs uppercase py-3 font-bold block"
             routerLinkActive
           >
@@ -124,6 +124,18 @@
               class="fa fa-user mr-2 text-sm"
             ></i>
             My Profile
+          </a>
+        </li>
+        <li class="items-center">
+          <a
+            [routerLink]="['/employee/settings']"
+            class="text-xs uppercase py-3 font-bold block"
+            routerLinkActive
+          >
+            <i
+              class="fa fa-user mr-2 text-sm"
+            ></i>
+            Tasks
           </a>
         </li>
       </ul>
