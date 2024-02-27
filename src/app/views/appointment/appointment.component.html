@@ -1,0 +1,112 @@
+
+<div class="flex flex-wrap -mx-4">
+
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
+        <div class="container px-4 mx-auto mt-2 mb-1">
+            <div class="flex justify-between items-center flex-wrap">
+            <div class="col-span-10">
+                <label class="text-lg font-bold text-red-600">Appointments</label>
+            </div>
+            <div class="col-span-2 flex justify-end">
+                <app-appointment-modal></app-appointment-modal>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
+        <div class="block w-full overflow-x-auto p-6">
+          <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+            <div class="grid grid-cols-3 gap-4 mb-4">
+              <div class="flex flex-col mr-4 w-full">
+                <label for="startDate" class="mb-2">Start Date:</label>
+                <input type="date" id="startDate" class="rounded border p-2" [(ngModel)]="startDate" (ngModelChange)="onStartDateChange($event)">
+              </div>
+              <div class="flex flex-col mr-4 w-full">
+                <label for="endDate" class="mb-2">End Date:</label>
+                <input type="date" id="endDate" class="rounded border p-2" [(ngModel)]="endDate" (ngModelChange)="onEndDateChange($event)">
+              </div>
+              <div class="flex flex-col">
+                <label for="state" class="mb-2">State:</label>
+                <select id="state" class="rounded border p-2" [(ngModel)]="selectedState" (ngModelChange)="onStateChange($event)">
+                  <option value="">All States</option>
+                  <option value="CA">California</option>
+                  <option value="NY">New York</option>
+                  </select>
+              </div>
+            </div>
+            <div *ngFor="let appointment of appointments" class="bg-blueGray-50 rounded shadow-md p-4">
+              <h3>{{ appointment.name }}</h3>
+              <p class="text-gray-500">
+                <span class="font-bold">Date:</span> {{ appointment.date | date:'mediumDate' }}
+              </p>
+              <p class="text-gray-500">
+                <span class="font-bold">Time:</span> {{ appointment.time }}
+              </p>
+            </div>
+          </div>
+          <!-- <div class="flex justify-center">
+            <div class="flex-grow flex justify-between items-center">
+              <div class="flex space-x-2">
+                <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded-md shadow-sm shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" mwlCalendarPreviousView (click)="closeOpenMonthViewDay()">
+                  Previous
+                </button>
+                <button class="border border-gray-300 text-gray-700 font-bold py-2 px-4 rounded-md shadow-sm shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" mwlCalendarToday (click)="setViewDate(today)">
+                  Today
+                </button>
+                <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded-md shadow-sm shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" mwlCalendarNextView (click)="closeOpenMonthViewDay()">
+                  Next
+                </button>
+              </div>
+              <h3 class="text-xl font-bold">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+              <div class="flex space-x-2">
+                <button class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md shadow-sm shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
+                  Month
+                </button>
+                <button class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md shadow-sm shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
+                  Week
+                </button>
+                <button class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md shadow-sm shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
+                  Day
+                </button>
+              </div>
+            </div>
+          </div> -->
+        <!--           
+          <div [ngSwitch]="view">
+            <mwl-calendar-month-view
+              *ngSwitchCase="CalendarView.Month"
+              [viewDate]="viewDate"
+              [events]="events"
+              [refresh]="refresh"
+              [activeDayIsOpen]="activeDayIsOpen"
+              (dayClicked)="dayClicked($event.day)"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              (eventTimesChanged)="eventTimesChanged($event)"
+            >
+            </mwl-calendar-month-view>
+            <mwl-calendar-week-view
+              *ngSwitchCase="CalendarView.Week"
+              [viewDate]="viewDate"
+              [events]="events"
+              [refresh]="refresh"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              (eventTimesChanged)="eventTimesChanged($event)"
+            >
+            </mwl-calendar-week-view>
+            <mwl-calendar-day-view
+              *ngSwitchCase="CalendarView.Day"
+              [viewDate]="viewDate"
+              [events]="events"
+              [refresh]="refresh"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              (eventTimesChanged)="eventTimesChanged($event)"
+            >
+            </mwl-calendar-day-view>
+          </div> -->
+          <!-- <app-appointment-calendar></app-appointment-calendar> -->
+        </div>
+    </div>
+</div>
