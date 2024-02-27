@@ -1,6 +1,6 @@
 
 <div class="flex">
-  <button [ngClass]="'text-'+ buttonType.color + '-500 flex items-center justify-center'" class="font-bold text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="toggleModal()">    
+  <button [ngClass]="'text-'+ buttonType.color + '-500 flex items-center justify-center'" class="font-bold text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="toggleModal()">
     <i [ngClass]="buttonType.icon" class="text-center text-sm"></i>
   </button>
 </div>
@@ -21,61 +21,73 @@
         </button>
       </div>
       <!--body-->
+      <form [formGroup]="scheduleForm" (ngSubmit)="checkFormValidity()">
       <div class="relative p-6 flex-auto flex flex-wrap">
-              
+
         <div class="w-full lg:w-6/12 flex flex-col mb-3 lg:mb-0 pr-2">
           <label for="start-date" class="block text-xs font-medium text-gray-700">Start Date</label>
-          <input type="date" id="start-date" name="start-date" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+          <input type="date" id="start-date" name="start-date" formControlName="startDate" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
         </div>
         <div class="w-full lg:w-6/12 flex flex-col pl-2">
           <label for="end-date" class="block text-xs font-medium text-gray-700">End Date</label>
-          <input type="date" id="end-date" name="end-date" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+          <input type="date" id="end-date" name="end-date" formControlName="endDate" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
         </div>
-        
+
         <div class="w-full lg:w-6/12 flex flex-col mt-2 mb-3 lg:mb-0 pr-2">
           <label for="start-hour" class="block text-xs font-medium text-gray-700">Start hour</label>
-          <input type="time" id="start-hour" name="start-hour" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+          <input type="time" id="start-hour" name="start-hour" formControlName="startHour" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
         </div>
         <div class="w-full lg:w-6/12 flex mt-2 flex-col pl-2">
           <label for="end-hour" class="block text-xs font-medium text-gray-700">End hour</label>
-          <input type="time" id="end-hour" name="end-hour" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+          <input type="time" id="end-hour" name="end-hour" formControlName="endHour" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
         </div>
 
         <div class="w-full lg:w-12/12 mt-2">
           <div class="mt-1 block w-full border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
-        
+
             <div class="flex justify-between items-center px-3 py-2 bg-white rounded-t-md">
               <span class="text-gray-700 font-bold">Select days</span>
-              <button (click)="toogleDayDropdown()" class="focus:outline-none text-gray-500 hover:text-gray-700" aria-haspopup="true" aria-expanded="true">
+              <button (click)="toogleDayDropdown()" type="button" class="focus:outline-none text-gray-500 hover:text-gray-700" aria-haspopup="true" aria-expanded="true">
                 <svg class="h-4 w-4 transform transition-transform" [class.rotate-180]="showDayDropdown" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path *ngIf="!showDayDropdown" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                   <path *ngIf="showDayDropdown" fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" />
                 </svg>
               </button>
             </div>
-            
-        
+
             <div class="p-3 space-y-2" *ngIf="showDayDropdown">
-              <label class="flex items-center space-x-2" *ngFor="let day of allDays">
-                <input type="checkbox" class="form-checkbox h-5 w-5 text-emerald-500">
-                <span class="text-gray-700">{{ day }}</span>
+              <label class="flex items-center space-x-2" *ngFor="let dayLabel of allDays">
+                <input type="checkbox" [value]="dayLabel" class="form-checkbox h-5 w-5 text-emerald-500" (change)="toogleCheckboxDay($event)">
+                <span class="text-gray-700">{{ dayLabel }}</span>
               </label>
-            </div>            
+            </div>
           </div>
         </div>
-        
-        
+
+        <!--Error label-->
+        <div class="w-full lg:w-12/12 mt-2">
+          <div *ngIf="error" class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-500">
+            <span class="text-xs inline-block align-middle mr-8">
+              <b class="capitalize">Error: </b> {{ error}}
+            </span>
+          </div>
+        </div>
+        <!--Error label-->
+
       </div>
-      
+
       <!--footer-->
       <div class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
         <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="toggleModal()">
           Close
         </button>
-        <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="toggleModal()">
+        <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="submit">
+          <i class='fas fa-spinner fa-spin text-lg' *ngIf="isLoading"></i>
           Save Changes
         </button>
       </div>
+    </form>
+
     </div>
   </div>
 </div>
