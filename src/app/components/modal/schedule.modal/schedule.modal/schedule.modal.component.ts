@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ButtonType, buttonTypesData } from 'src/app/config/data/constant';
+import { Schedule } from 'src/app/model/Employees';
 import { Day } from 'src/app/model/Type';
 import { ScheduleService } from 'src/app/services/employee/schedule/schedule.service';
+import { UtilsService } from 'src/app/services/utils/utils.service';
 
 @Component({
   selector: 'app-schedule-modal',
@@ -12,11 +14,10 @@ import { ScheduleService } from 'src/app/services/employee/schedule/schedule.ser
 export class ScheduleModalComponent implements OnInit {
 
   @Input() buttonTypeValue : string = "create";
-  showModal : boolean = false;
-
   buttonType : ButtonType;
-  error : string | undefined;
-  showDayDropdown : boolean = false;
+
+  @Input() schedule : Schedule;
+
 
   allDays: Day[] = Object.values(Day);
 
@@ -34,8 +35,25 @@ export class ScheduleModalComponent implements OnInit {
   @Output() refreshData: EventEmitter<void> = new EventEmitter<void>();
 
   isLoading : boolean = false;
+  showDayDropdown : boolean = false;
+  error : string | undefined;
+  showModal : boolean = false;
 
-  constructor(private scheduleService : ScheduleService) {}
+
+  constructor(private scheduleService : ScheduleService, private utilsService : UtilsService) {}
+
+  initDateForUpdate(){
+    if(this.schedule){
+      this.scheduleForm.patchValue({
+        startDate: new Date(this.schedule.startDate).toISOString().split('T')[0],
+        endDate : new Date(this.schedule.endDate).toISOString().split('T')[0],
+        startHour : this.utilsService.convertTimeToStringHour(this.schedule.startHour),
+        endHour : this.utilsService.convertTimeToStringHour(this.schedule.endHour),
+      });
+      this.selectedDays = this.schedule.day;
+      console.log(this.scheduleForm.value);
+    }
+  }
 
   toogleCheckboxDay(event : any){
     const selectedDay = event.target.value;
@@ -83,7 +101,27 @@ export class ScheduleModalComponent implements OnInit {
     }
     this.isLoading = true;
     this.error = undefined;
-    this.saveSchedule();
+    (!this.schedule) ? this.saveSchedule() : this.updateSchedule();
+  }
+
+  isSelectedDay(dayLabel: Day): boolean {
+    return this.selectedDays.includes(dayLabel);
+  }
+
+  updateSchedule(){
+    this.scheduleService.updateSchedule({
+      _id : this.schedule._id,
+      ...this.scheduleForm.value,
+      day : this.selectedDays
+    }).then((data) => {
+      this.refreshData.emit();
+      this.toggleModal();
+    }).catch((error) => {
+      console.log(error)
+      this.error = error.error.message;
+    }).finally(() => {
+      this.isLoading = false;
+    });
   }
 
   saveSchedule(){
@@ -107,6 +145,7 @@ export class ScheduleModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.buttonType = buttonTypesData.find((data) => data.type === this.buttonTypeValue);
+    this.initDateForUpdate();
   }
 
 

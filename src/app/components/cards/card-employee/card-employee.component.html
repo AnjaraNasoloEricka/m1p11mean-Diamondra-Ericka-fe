@@ -68,7 +68,7 @@
                 {{ schedule.day }}
               </td>
               <td>
-                <app-schedule-modal buttonTypeValue="update"></app-schedule-modal>
+                <app-schedule-modal [schedule]="schedule" (refreshData)="initAllSchedules()" buttonTypeValue="update"></app-schedule-modal>
               </td>
             </tr>
           </tbody>
