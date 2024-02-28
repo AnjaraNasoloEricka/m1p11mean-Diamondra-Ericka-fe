@@ -41,7 +41,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let schedule of allSchedules">
+            <tr *ngFor="let schedule of getCurrentPageSchedules()">
               <td
                 class="border-t-0 px-6 align-middle text-emerald-400 font-bold border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
               >
@@ -55,12 +55,12 @@
               <td
                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
               >
-                {{ (schedule.startHour * 1000) | date: 'shortTime' }}
+                {{ formatTime(schedule.startHour * 1000) }}
               </td>
               <td
                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
               >
-                {{ (schedule.endHour * 1000) | date: 'shortTime'}}
+                {{ formatTime(schedule.endHour * 1000) }}
               </td>
               <td
                 class="border-t-0 px-6 align-middle font-bold border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
@@ -68,17 +68,21 @@
                 {{ schedule.day }}
               </td>
               <td>
-                <app-schedule-modal buttonTypeValue="update"></app-schedule-modal>
+                <app-schedule-modal [schedule]="schedule" (refreshData)="initAllSchedules()" buttonTypeValue="update"></app-schedule-modal>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="w-full px-4 py-3 flex items-center justify-between border-t bg-white sm:px-6">
-        <button class="relative inline-flex items-center px-4 py-2 border border-emerald-300 text-sm font-medium rounded-md text-white bg-emerald-500 hover:bg-emerald-600">
+        <button
+        (click)="previousPage()" [disabled]="!isPreviousPageAvailable()" [class.opacity-50]="!isPreviousPageAvailable()"
+        class="relative inline-flex items-center px-4 py-2 border border-emerald-300 text-sm font-medium rounded-md text-white bg-emerald-500 hover:bg-emerald-600">
           Previous
         </button>
-        <button class="ml-3 relative inline-flex items-center px-4 py-2 border border-emerald-300 text-sm font-medium rounded-md text-white bg-emerald-500 hover:bg-emerald-600">
+        <button
+        (click)="nextPage()" [disabled]="!isNextPageAvailable()" [class.opacity-50]="!isNextPageAvailable()"
+        class="ml-3 relative inline-flex items-center px-4 py-2 border border-emerald-300 text-sm font-medium rounded-md text-white bg-emerald-500 hover:bg-emerald-600">
           Next
         </button>
       </div>

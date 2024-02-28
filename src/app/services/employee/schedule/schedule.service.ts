@@ -15,4 +15,17 @@ export class ScheduleService extends CrudService<Schedule>{
   constructor(http : HttpClient) {
     super(http, schedulesEndpoint);
   }
+
+  updateSchedule(schedule : Schedule){
+    return new Promise((resolve, reject) => {
+      this.http.put(`${this.url}/${schedulesEndpoint}/${schedule._id}`, schedule).subscribe(
+        (data) => {
+          resolve(data);
+        },
+        (error) => {
+          reject(error);
+        }
+      )
+    });
+  }
 }

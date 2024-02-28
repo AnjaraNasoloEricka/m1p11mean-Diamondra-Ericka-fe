@@ -80,6 +80,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDateRangeInput } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { CustomerhomeComponent } from './views/customer/home/customerhome/customerhome.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatCardModule } from '@angular/material/card';
 import { PaymentComponent } from './views/appointment/payment/payment.component';
@@ -138,6 +139,7 @@ import { AppointmentDetailComponent } from './views/appointment/appointment-deta
     ProfileEmployeeComponent,
     CardEmployeeComponent,
     ScheduleModalComponent,
+    CustomerhomeComponent,
     TaskComponent,
     PaymentComponent,
     PaymentModalComponent,

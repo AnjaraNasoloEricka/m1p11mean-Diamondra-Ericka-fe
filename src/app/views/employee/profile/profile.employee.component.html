@@ -19,24 +19,26 @@
         <div class="text-center mt-12">
           <br/>
         </div>
-        <div class="mt-8">
-          <label for="inputField" class="block text-sm font-semibold text-gray-600 mb-1">Username</label>
-          <input type="text" id="inputField" [value]="userData?.name || ''" placeholder="Enter username..." class="w-full py-2 px-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500">
-        </div>
-        <div class="mt-4">
-          <label for="inputField2" class="block text-sm font-semibold text-gray-600 mb-1">Email address</label>
-          <input type="text" id="inputField2" [value]="userData?.email || ''" placeholder="Enter email address..." class="w-full py-2 px-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500">
-        </div>
-        <div class="mt-4">
-          <label for="inputField3" class="block text-sm font-semibold text-gray-600 mb-1">Phone number</label>
-          <input type="text" id="inputField3" [value]="userData?.phoneNumber || ''" placeholder="Enter phone number..." class="w-full py-2 px-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500">
-        </div>
-        <div class="mt-8 flex justify-center">
-          <button class="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-lg">
-            <i class="fas fa-check"></i>
-            Save Changes
-          </button>
-        </div>
+        <form [formGroup]="userForm" (ngSubmit)="updateEmployeeInfo()">
+          <div class="mt-8">
+            <label for="inputField" class="block text-sm font-semibold text-gray-600 mb-1">Username</label>
+            <input type="text" id="inputField" formControlName="name" placeholder="Enter username..." class="w-full py-2 px-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500">
+          </div>
+          <div class="mt-4">
+            <label for="inputField2" class="block text-sm font-semibold text-gray-600 mb-1">Email address</label>
+            <input type="text" id="inputField2" formControlName="email" placeholder="Enter email address..." class="w-full py-2 px-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500">
+          </div>
+          <div class="mt-4">
+            <label for="inputField3" class="block text-sm font-semibold text-gray-600 mb-1">Phone number</label>
+            <input type="text" id="inputField3" formControlName="phoneNumber" placeholder="Enter phone number..." class="w-full py-2 px-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500">
+          </div>
+          <div class="mt-8 flex justify-center">
+            <button type="submit" class="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-lg">
+              <i class="fas fa-check"></i>
+              Save Changes
+            </button>
+          </div>
+        </form>
         <div class="text-center mt-4">
           <br/>
         </div>

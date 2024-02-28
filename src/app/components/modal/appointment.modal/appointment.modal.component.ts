@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { th } from 'date-fns/locale';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ButtonType, buttonTypesData } from 'src/app/config/data/constant';
 import { Services } from 'src/app/model/Services';
