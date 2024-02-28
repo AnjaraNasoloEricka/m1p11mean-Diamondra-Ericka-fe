@@ -8,7 +8,7 @@
               <label class="text-lg font-bold text-red-600">Special Offer</label>
           </div>
           <div class="col-span-2 flex justify-end">
-            <app-specialoffer-modal></app-specialoffer-modal>
+            <app-specialoffer-modal [allServices]="allServices" (refreshData)="initSpecialOffer()"></app-specialoffer-modal>
           </div>
           </div>
       </div>
@@ -102,9 +102,7 @@
               <td
                   class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
               >
-                  <button class="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                    <i class="fas fa-eye"></i>
-                  </button>
+                  <app-detailspecialoffer-modal [specialOffer]="offer"></app-detailspecialoffer-modal>
 
                   <button class="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="showDeleteConfirmation(offer._id)">
                       <i class="fas fa-trash-alt"></i>

@@ -25,6 +25,6 @@ export enum Day {
 }
 
 export enum ReductionType {
-  "Percentage" = "Percentage",
-  "Amount" = "Amount"
+  "percentage" = "percentage",
+  "value" = "value",
 }

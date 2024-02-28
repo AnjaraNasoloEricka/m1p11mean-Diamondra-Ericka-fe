@@ -16,7 +16,7 @@ class="flex-col min-w-0 break-words overflow-x-hidden w-3/4 overflow-y-auto fixe
   </div>
 </div>
 <div class="relative flex-auto px-4 py-10 pt-0">
-  <form >
+  <form [formGroup]="specialOfferForm" (ngSubmit)="checkFormValidity()">
     <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
       Special Offer Information
     </h6>
@@ -31,9 +31,9 @@ class="flex-col min-w-0 break-words overflow-x-hidden w-3/4 overflow-y-auto fixe
           </label>
           <input
             type="date"
-            formControlName="name"
+            formControlName="startDate"
             class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            placeholder="Name"
+            placeholder="Start Date"
             required
           />
         </div>
@@ -48,9 +48,9 @@ class="flex-col min-w-0 break-words overflow-x-hidden w-3/4 overflow-y-auto fixe
           </label>
           <input
             type="date"
-            formControlName="email"
+            formControlName="endDate"
             class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            placeholder="Email"
+            placeholder="End date"
             required
           />
         </div>
@@ -63,9 +63,8 @@ class="flex-col min-w-0 break-words overflow-x-hidden w-3/4 overflow-y-auto fixe
           >
             Reduction Type
           </label>
-          <select id="selectInput" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
-            <option *ngFor="let type of reductionTypes" [value]="type">{{ type.value }}</option>
-
+          <select formControlName="reductionType" id="selectInput" class="border-0 px-3 py-3 placeholder-blueGray-300  bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+            <option *ngFor="let reductionType of reductionTypes" value="{{ reductionType }}">{{ reductionType }}</option>
           </select>
         </div>
       </div>
@@ -79,7 +78,7 @@ class="flex-col min-w-0 break-words overflow-x-hidden w-3/4 overflow-y-auto fixe
           </label>
           <input
             type="number"
-            formControlName="password"
+            formControlName="reductionValue"
             class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
             placeholder="Password"
             required=""
@@ -96,9 +95,25 @@ class="flex-col min-w-0 break-words overflow-x-hidden w-3/4 overflow-y-auto fixe
           </label>
           <input
             type="number"
-            formControlName="phoneNumber"
+            formControlName="commissionRate"
             class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            placeholder="Phone number"
+            placeholder="Commission Rate"
+          />
+        </div>
+      </div>
+      <div class="w-full px-4">
+        <div class="relative w-full mb-3">
+          <label
+            class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+            htmlFor="grid-password"
+          >
+            Commission Value
+          </label>
+          <input
+            type="number"
+            formControlName="commissionValue"
+            class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            placeholder="Commission Rate"
           />
         </div>
       </div>
@@ -117,11 +132,22 @@ class="flex-col min-w-0 break-words overflow-x-hidden w-3/4 overflow-y-auto fixe
         >
         Services
         </label>
+
         <div class="flex justify-between items-center px-3 py-2 bg-white rounded-t-md">
           <span class="text-gray-700">Select service</span>
-          <button type="button" class="focus:outline-none text-gray-500 hover:text-gray-700" aria-haspopup="true" aria-expanded="true">
-           
+          <button (click)="toogleServices()" type="button" class="focus:outline-none text-gray-500 hover:text-gray-700" aria-haspopup="true" aria-expanded="true">
+            <svg class="h-4 w-4 transform transition-transform" [class.rotate-180]="showServices" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path *ngIf="!showServices" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              <path *ngIf="showServices" fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" />
+            </svg>
           </button>
+        </div>
+
+        <div class="p-3 space-y-2" *ngIf="showServices">
+          <label class="flex items-center space-x-2" *ngFor="let service of allServices">
+            <input type="checkbox" [checked]="isSelectedService(service._id)" [value]="service._id" class="form-checkbox h-5 w-5 text-emerald-500" (change)="toogleCheckboxService($event)">
+            <span class="text-gray-700">{{ service.name }}</span>
+          </label>
         </div>
       </div>
     </div>   

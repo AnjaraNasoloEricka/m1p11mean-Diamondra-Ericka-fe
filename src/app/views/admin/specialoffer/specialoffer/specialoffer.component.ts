@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SpecialOffer } from 'src/app/model/Services';
+import { Services, SpecialOffer } from 'src/app/model/Services';
 import { EmployeesService } from 'src/app/services/employee/employee.service';
+import { ServicesService } from 'src/app/services/service/services.service';
 import { SpecialofferService } from 'src/app/services/specialoffer/specialoffer.service';
 import Swal from 'sweetalert2';
 
@@ -13,8 +14,26 @@ export class SpecialofferComponent implements OnInit {
 
   allSpecialOffer : SpecialOffer[] = [];
   isLoading : boolean = false;
+  allServices : Services[] = [];
   
-  constructor(private specialofferService: SpecialofferService) {}
+  constructor(private specialofferService: SpecialofferService, private serviceService : ServicesService) {}
+
+  initServices(){
+    this.isLoading = true;
+    this.serviceService.getAll().then(
+      (response : any) => {
+        if(response.status !== 200) throw new Error(response);
+        this.allServices = response.data;
+      }
+    ).catch(
+      (error) => {
+        console.log(error);
+      }
+    ).finally(() => {
+      this.isLoading = false;
+    })
+
+  }
   
   initSpecialOffer(){
     this.isLoading = true;
@@ -69,6 +88,7 @@ export class SpecialofferComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initServices();
     this.initSpecialOffer();
   }
 
