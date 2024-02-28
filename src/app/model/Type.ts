@@ -23,3 +23,8 @@ export enum Day {
   Saturday = "Saturday", 
   Sunday = "Sunday" 
 }
+
+export enum ReductionType {
+  "Percentage" = "Percentage",
+  "Amount" = "Amount"
+}

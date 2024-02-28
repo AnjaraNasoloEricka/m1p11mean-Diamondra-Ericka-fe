@@ -32,10 +32,11 @@ export class SpecialofferComponent implements OnInit {
     })
   }
 
-  showDeleteConfirmation() {
+
+  showDeleteConfirmation(id : string) {
     Swal.fire({
       title: 'Are you sure?',
-      text: 'You will not be able to recover this employee!',
+      text: 'You will not be able to recover this special offer!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -43,11 +44,26 @@ export class SpecialofferComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Employee has been deleted.',
-          'success'
-        )
+        this.specialofferService.delete(id).then(
+          (response : any) => {
+            if(response.status !== 200) throw new Error(response);
+            Swal.fire(
+              'Deleted!',
+              'Special has been deleted.',
+              'success'
+            )
+            this.initSpecialOffer();
+          }
+        ).catch(
+          (error) => {
+            Swal.fire(
+              'Error!',
+              'Something went wrong.',
+              'error'
+            )
+          }
+        );
+        
       }
     });
   }
