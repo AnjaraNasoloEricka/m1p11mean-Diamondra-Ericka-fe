@@ -9,6 +9,11 @@ export type User = {
   phoneNumber : string
 }
 
+export type Notification = {
+  title : string, 
+  body : string,
+}
+
 export enum Day { 
   Monday = "Monday", 
   Tuesday = "Tuesday", 

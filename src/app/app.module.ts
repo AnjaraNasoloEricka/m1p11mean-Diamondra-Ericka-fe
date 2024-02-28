@@ -81,6 +81,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CustomerhomeComponent } from './views/customer/home/customerhome/customerhome.component';
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { URL } from "src/environments/environment";
+import { NotificationalertComponent } from './components/alert/notificationalert/notificationalert.component';
+
+// configuration for socket.io
+const config: SocketIoConfig = { url: URL.baseUrl , options: {
+  withCredentials: true
+} };
+// configuration for socket.io
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -134,18 +145,20 @@ import { CustomerhomeComponent } from './views/customer/home/customerhome/custom
     CardEmployeeComponent,
     ScheduleModalComponent,
     CustomerhomeComponent,
+    NotificationalertComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     CommonModule,
     FormsModule,
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
