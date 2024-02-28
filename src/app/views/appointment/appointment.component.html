@@ -14,10 +14,6 @@
         </div>
     </div>
 
-    <div class="relative flex flex-col min-w-0 w-full mx-auto mb-6 shadow-lg rounded bg-white" >
-      <app-pageloader [isLoading]="isLoading"></app-pageloader>
-    </div>
-
     <div class="relative flex flex-col min-w-0 break-words w-full mb-6 ">
       <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
         <div class="grid grid-cols-3 gap-4 mb-4">
@@ -50,28 +46,27 @@
               </select>
           </div>
         </div>
-        <div *ngFor="let appointment of appointments" class="bg-white rounded shadow-md p-4 flex flex-3 justify-between" (click)="showDetail(appointment)">
-          <div>
-            <h3>{{ appointment.name }}</h3>
-            <p class="text-gray-500">
-              <span class="font-bold">Date:</span> {{ appointment?.startDateTime | date:'mediumDate' }}
-            </p>          
+        <div class="relative flex flex-col min-w-0 w-full mx-auto mb-6 shadow-lg rounded bg-white" >
+          <app-pageloader [isLoading]="isLoading"></app-pageloader>
+        </div>
+        <div class="grid grid-cols-1 gap-4 -my-6">
+          <div *ngFor="let appointment of appointments" class="bg-white rounded shadow-md p-4 flex flex-3 justify-between" (click)="showDetail(appointment)">
+            <div>
+                <span class="text-lg font-semibold text-gray-800 mt-1">Haircut, Shampoo, Blow Dry</span> 
+                <p class="text-gray-800">{{ appointment?.startDateTime | date:'medium' }}</p>
+              </div>
+            <div>
+                <p class="text-gray-700"><span class="font-semibold">Employee: </span>{{ appointment.employee?.user.name}}</p>                       
+                <p class="text-gray-700"><span class="font-semibold">Price: </span> ${{appointment.totalPrice}}</p>                    
+            </div>
+            <div class="flex justify-end">
+              <i class="fa fa-check text-green-600"></i>           
+              <i class="fa fa-spinner text-orange-500"></i>           
+              <i class="fa fa-ban text-red-500"></i>           
+              <i class="fa fa-calendar text-lightBlue-500"></i>           
+            </div>
+            
           </div>
-          <div>
-            <p class="text-gray-500">
-              <span class="font-bold">Price:</span> {{ appointment?.totalPrice }} Ar
-            </p>           
-            <p class="text-gray-500">
-              <span class="font-bold">Employee:</span> {{ appointment.employee?.user.name}}
-            </p>            
-          </div>
-          <div class="flex justify-end">
-            <i class="fa fa-check text-green-600"></i>           
-            <i class="fa fa-spinner text-orange-500"></i>           
-            <i class="fa fa-ban text-red-500"></i>           
-            <i class="fa fa-calendar text-lightBlue-500"></i>           
-          </div>
-          
         </div>
       </div>
           <!-- <div class="flex justify-center">
