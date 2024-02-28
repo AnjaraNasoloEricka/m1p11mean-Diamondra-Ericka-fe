@@ -51,7 +51,6 @@ export class ScheduleModalComponent implements OnInit {
         endHour : this.utilsService.convertTimeToStringHour(this.schedule.endHour),
       });
       this.selectedDays = this.schedule.day;
-      console.log(this.scheduleForm.value);
     }
   }
 
@@ -117,7 +116,6 @@ export class ScheduleModalComponent implements OnInit {
       this.refreshData.emit();
       this.toggleModal();
     }).catch((error) => {
-      console.log(error)
       this.error = error.error.message;
     }).finally(() => {
       this.isLoading = false;
@@ -132,7 +130,6 @@ export class ScheduleModalComponent implements OnInit {
       this.refreshData.emit();
       this.toggleModal();
     }).catch((error) => {
-      console.log(error)
       this.error = error.error.message;
     }).finally(() => {
       this.isLoading = false;

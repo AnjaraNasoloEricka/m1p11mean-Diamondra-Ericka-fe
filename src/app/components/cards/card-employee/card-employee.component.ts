@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Schedule } from "src/app/model/Employees";
 import { CrudService } from "src/app/services/crud/crud.service";
 import { ScheduleService } from "src/app/services/employee/schedule/schedule.service";
+import { UtilsService } from "src/app/services/utils/utils.service";
 
 @Component({
   selector: "app-card-employee",
@@ -58,6 +59,10 @@ export class CardEmployeeComponent implements OnInit {
     });
   }
 
-  constructor(private scheduleService : ScheduleService) {}
+  formatTime(timestamp : number){
+    return this.utilsService.formatTime(timestamp);
+  }
+
+  constructor(private scheduleService : ScheduleService, private utilsService : UtilsService) {}
 
 }

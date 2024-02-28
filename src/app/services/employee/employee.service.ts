@@ -16,5 +16,17 @@ export class EmployeesService extends CrudService<Employees>{
     super(http, employeesEndpoint);
   }
 
+  updateProfile(employeeData : any){
+    return new Promise((resolve, reject) => {
+      return this.http.put(`${this.url}/${employeesEndpoint}/profile`, employeeData).subscribe(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    })
+  }
 
 }

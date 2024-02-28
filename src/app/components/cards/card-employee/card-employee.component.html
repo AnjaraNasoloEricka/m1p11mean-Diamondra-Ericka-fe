@@ -55,12 +55,12 @@
               <td
                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
               >
-                {{ (schedule.startHour * 1000) | date: 'shortTime' }}
+                {{ formatTime(schedule.startHour * 1000) }}
               </td>
               <td
                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
               >
-                {{ (schedule.endHour * 1000) | date: 'shortTime'}}
+                {{ formatTime(schedule.endHour * 1000) }}
               </td>
               <td
                 class="border-t-0 px-6 align-middle font-bold border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
