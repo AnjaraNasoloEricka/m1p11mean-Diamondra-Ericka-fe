@@ -43,9 +43,9 @@ export class CrudService<T> {
   }
 
   // update
-  update(data : T) {
+  update(data : T | FormData, id : String) {
     return new Promise((resolve, reject) => {
-      this.http.put(`${this.baseUrl}/${this.crudEndpoint}`, data).subscribe(
+      this.http.put(`${this.baseUrl}/${this.crudEndpoint}/${id}`, data).subscribe(
         (response) => {
           resolve(response);
         },
