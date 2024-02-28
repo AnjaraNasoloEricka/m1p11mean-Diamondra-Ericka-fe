@@ -28,6 +28,8 @@ import { ServiceComponent } from "./views/service/service.component";
 import { EmployeeComponent } from "./views/employee/employee.component";
 import { AppointmentComponent } from "./views/appointment/appointment.component";
 import { ProfileEmployeeComponent } from "./views/employee/profile/profile.employee.component";
+import { TaskComponent } from './views/employee/task/task.component';
+import { AppointmentDetailComponent } from './views/appointment/appointment-detail/appointment-detail.component';
 
 const routes: Routes = [
   // admin views
@@ -38,7 +40,6 @@ const routes: Routes = [
       { path: "dashboard", component: DashboardComponent },
       { path: "settings", component: SettingsComponent },
       { path: "tables", component: TablesComponent },
-      { path: "maps", component: MapsComponent },
       { path: "services", component : ServiceComponent},
       { path: "employees", component : EmployeeComponent},
       { path: "profile", component : ProfileEmployeeComponent},
@@ -53,10 +54,9 @@ const routes: Routes = [
     component: EmployeeLayoutComponent,
     children: [
       { path: "dashboard", component: DashboardComponent },
-      { path: "tables", component: TablesComponent },
-      { path: "services", component : ServiceComponent},
       { path: "appointments", component : AppointmentComponent},
-      { path: "settings", component: SettingsComponent },
+      { path: "profile", component : ProfileEmployeeComponent},
+      { path: "tasks", component: TaskComponent },
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
     ],
     canActivate : [AuthGuard]
@@ -72,6 +72,7 @@ const routes: Routes = [
       { path: "services", component : ServiceComponent},
       { path: "employees", component : EmployeeComponent},
       { path: "appointments", component : AppointmentComponent},
+      { path: "appointments/:id", component : AppointmentDetailComponent},
       { path: "settings", component: SettingsComponent },
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
     ],
