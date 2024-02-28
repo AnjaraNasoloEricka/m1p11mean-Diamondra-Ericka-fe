@@ -74,12 +74,18 @@ import { AppointmentModalComponent } from './components/modal/appointment.modal/
 import { ProfileEmployeeComponent } from "./views/employee/profile/profile.employee.component";
 import { CardEmployeeComponent } from "./components/cards/card-employee/card-employee.component";
 import { ScheduleModalComponent } from './components/modal/schedule.modal/schedule.modal/schedule.modal.component';
+import { TaskComponent } from './views/employee/task/task.component';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDateRangeInput } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CustomerhomeComponent } from './views/customer/home/customerhome/customerhome.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatCardModule } from '@angular/material/card';
+import { PaymentComponent } from './views/appointment/payment/payment.component';
+import { PaymentModalComponent } from './components/modal/payment.modal/payment.modal.component';
+import { AppointmentDetailComponent } from './views/appointment/appointment-detail/appointment-detail.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { URL } from "src/environments/environment";
@@ -145,6 +151,10 @@ const config: SocketIoConfig = { url: URL.baseUrl , options: {
     CardEmployeeComponent,
     ScheduleModalComponent,
     CustomerhomeComponent,
+    TaskComponent,
+    PaymentComponent,
+    PaymentModalComponent,
+    AppointmentDetailComponent,
     NotificationalertComponent,
   ],
   imports: [
@@ -159,6 +169,8 @@ const config: SocketIoConfig = { url: URL.baseUrl , options: {
     MatInputModule,
     MatNativeDateModule,
     SocketIoModule.forRoot(config)
+    DragDropModule,
+    MatCardModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
