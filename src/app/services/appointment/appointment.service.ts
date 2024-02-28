@@ -14,9 +14,9 @@ export class AppointmentService {
     this.http = http;
   }
 
-  getCustomerAppointments (data) {
+  getCustomerAppointments(customerId) {
     return new Promise((resolve, reject) => {
-      this.http.get(`${this.baseUrl}/customers/appointments`, data).subscribe(
+      this.http.get(`${this.baseUrl}/customers/appointments/`+customerId).subscribe(
         (response) => {
           resolve(response);
         },
@@ -39,4 +39,17 @@ export class AppointmentService {
       );
     });
   }
+
+  insertAppointment(data: FormData) {
+    return new Promise((resolve, reject) => {
+      this.http.post(`${this.baseUrl}/appointments`, data).subscribe(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  } 
 }
