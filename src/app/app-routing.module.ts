@@ -28,6 +28,7 @@ import { ServiceComponent } from "./views/service/service.component";
 import { EmployeeComponent } from "./views/employee/employee.component";
 import { AppointmentComponent } from "./views/appointment/appointment.component";
 import { ProfileEmployeeComponent } from "./views/employee/profile/profile.employee.component";
+import { CustomerhomeComponent } from "./views/customer/home/customerhome/customerhome.component";
 
 const routes: Routes = [
   // admin views
@@ -67,13 +68,13 @@ const routes: Routes = [
     path: "customer",
     component: CustomerComponent,
     children: [
-      { path: "dashboard", component: DashboardComponent },
+      { path: "home", component: CustomerhomeComponent },
       { path: "tables", component: TablesComponent },
       { path: "services", component : ServiceComponent},
       { path: "employees", component : EmployeeComponent},
       { path: "appointments", component : AppointmentComponent},
       { path: "settings", component: SettingsComponent },
-      { path: "", redirectTo: "dashboard", pathMatch: "full" },
+      { path: "", redirectTo: "home", pathMatch: "full" },
     ],
     canActivate : [AuthGuard]
   },

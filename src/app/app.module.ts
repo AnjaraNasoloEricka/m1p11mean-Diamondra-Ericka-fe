@@ -79,6 +79,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDateRangeInput } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { CustomerhomeComponent } from './views/customer/home/customerhome/customerhome.component';
 
 @NgModule({
   declarations: [
@@ -132,6 +133,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     ProfileEmployeeComponent,
     CardEmployeeComponent,
     ScheduleModalComponent,
+    CustomerhomeComponent,
   ],
   imports: [
     BrowserModule,
