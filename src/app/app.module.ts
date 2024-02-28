@@ -168,7 +168,7 @@ const config: SocketIoConfig = { url: URL.baseUrl , options: {
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
     DragDropModule,
     MatCardModule
   ],
