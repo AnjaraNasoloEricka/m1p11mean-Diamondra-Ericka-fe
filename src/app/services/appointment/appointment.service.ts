@@ -52,4 +52,30 @@ export class AppointmentService {
       );
     });
   } 
+
+  getAppointmentById(id: String) {
+    return new Promise((resolve, reject) => {
+      this.http.get(`${this.baseUrl}/appointments/` + id).subscribe(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
+  savePayment(data: any, appointmentId: string) {
+    return new Promise((resolve, reject) => {
+      this.http.post(`${this.baseUrl}/appointments/`+appointmentId+`/payments`, data).subscribe(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
 }
