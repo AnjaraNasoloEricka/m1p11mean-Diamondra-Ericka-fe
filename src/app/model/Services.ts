@@ -10,3 +10,5 @@ export type Services = {
   commissionValue: number,
   imageUrl : string
 }
+
+export type SpecialOffers = {}

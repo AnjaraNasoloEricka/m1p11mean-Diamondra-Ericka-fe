@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Appointment } from 'src/app/model/Appointment';
+import { AppointmentService } from 'src/app/services/appointment/appointment.service';
 
 @Component({
   selector: 'app-appointment-detail',
@@ -8,10 +10,29 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AppointmentDetailComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  appointment : Appointment;
+  isLoading : boolean = false;
 
+  constructor(private activatedRoute: ActivatedRoute, private appointmentService : AppointmentService) {}
+  
   ngOnInit(): void {
+    this.isLoading = true;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.loadAppointment(id);
   }
 
+  loadAppointment(id: string) {
+    this.appointmentService.getAppointmentById(id).then(
+      (response: any) => {
+        if (response.status !== 200) throw new Error(response);
+        this.appointment = response.data;
+      }
+    ).catch(
+      (error) => {
+        // Handle error
+      }
+    ).finally(() => {
+      this.isLoading = false;
+    });
+  }
 }
