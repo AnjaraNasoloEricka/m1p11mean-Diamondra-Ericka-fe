@@ -83,12 +83,8 @@
                 <td
                     class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
                 >
-                    <button class="bg-orange-500 text-white active:bg-orange-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="showDeleteConfirmation()">
-                        <i class="fas fa-calendar"></i>
-                    </button>
-                    <button class="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="showDeleteConfirmation()">
-                        <i class="fas fa-edit"></i>
-                    </button>
+                    <app-employee-modal buttonTypeValue="update" [employee]="employee" (refreshData)="initEmployees()"></app-employee-modal>
+
                     <button class="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="showDeleteConfirmation()">
                         <i class="fas fa-trash-alt"></i>
                     </button>
