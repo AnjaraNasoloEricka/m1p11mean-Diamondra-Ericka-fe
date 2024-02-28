@@ -3,6 +3,12 @@
     <div class="relative md:ml-64 bg-blueGray-100">
       <div class="px-4 md:px-10 mx-auto w-full p-10">
         <router-outlet></router-outlet>
+        <app-notificationalert 
+        [title]="notification.title" 
+        [body]="notification.body" 
+        [showNotification]="showNotification"
+        (close)="closeNotification()">
+        </app-notificationalert>
         <app-footer-admin></app-footer-admin>
       </div>
     </div>

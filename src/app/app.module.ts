@@ -87,6 +87,17 @@ import { PaymentComponent } from './views/appointment/payment/payment.component'
 import { PaymentModalComponent } from './components/modal/payment.modal/payment.modal.component';
 import { AppointmentDetailComponent } from './views/appointment/appointment-detail/appointment-detail.component';
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { URL } from "src/environments/environment";
+import { NotificationalertComponent } from './components/alert/notificationalert/notificationalert.component';
+
+// configuration for socket.io
+const config: SocketIoConfig = { url: URL.baseUrl , options: {
+  withCredentials: true
+} };
+// configuration for socket.io
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -144,18 +155,20 @@ import { AppointmentDetailComponent } from './views/appointment/appointment-deta
     PaymentComponent,
     PaymentModalComponent,
     AppointmentDetailComponent,
+    NotificationalertComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     CommonModule,
     FormsModule,
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
+    SocketIoModule.forRoot(config),
     DragDropModule,
     MatCardModule
   ],
