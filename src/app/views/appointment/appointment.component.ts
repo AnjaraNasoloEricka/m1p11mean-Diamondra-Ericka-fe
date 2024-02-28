@@ -26,7 +26,7 @@ export class AppointmentComponent implements OnInit {
   filterAppointments() {
     this.filteredAppointments = this.appointments.filter(appointment => {
       const dateInRange = !this.startDate || (appointment.startDateTime >= this.startDate && appointment.startDateTime <= this.endDate);
-      const stateMatches = !this.selectedState || appointment.startDateTime === this.selectedState;
+      const stateMatches = !this.selectedState || appointment.status === this.selectedState;
       return dateInRange && stateMatches;
     });
   }
@@ -47,6 +47,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   initAppointments() {
+    this.isLoading = true;
     let customerId = JSON.parse(localStorage.getItem("user"));
     this.appointmentService.getCustomerAppointments(customerId.id).then(
       (response: any) => {
