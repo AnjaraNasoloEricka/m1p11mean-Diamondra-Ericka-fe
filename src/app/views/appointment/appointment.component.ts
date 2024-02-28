@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-interface Appointment {
-  name: string;
-  date: Date;
-  time: string;
-  state: string;
-}
+import { Appointment } from 'src/app/model/Appointment';
+import { AppointmentService } from 'src/app/services/appointment/appointment.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment',
@@ -13,27 +9,24 @@ interface Appointment {
 })
 export class AppointmentComponent implements OnInit {
 
+  isLoading : boolean = false;
   appointments: Appointment[] = [];
   filteredAppointments: Appointment[] = [];
   startDate: Date | null = null;
   endDate: Date | null = null;
   selectedState: string | null = null;
 
-  constructor() { }
+  constructor(private appointmentService : AppointmentService, private router: Router) { }
 
   ngOnInit(): void {
-    this.appointments = [
-      { name: 'John Doe', date: new Date('2024-03-01'), time: '10:00 AM', state: 'CA' },
-      { name: 'Jane Smith', date: new Date('2024-03-05'), time: '2:00 PM', state: 'NY' },
-      { name: 'Mike Lee', date: new Date('2024-02-20'), time: '11:00 AM', state: 'CA' },
-    ];
     this.filteredAppointments = this.appointments; // Initially show all appointments
+    this.initAppointments()
   }
 
   filterAppointments() {
     this.filteredAppointments = this.appointments.filter(appointment => {
-      const dateInRange = !this.startDate || (appointment.date >= this.startDate && appointment.date <= this.endDate);
-      const stateMatches = !this.selectedState || appointment.state === this.selectedState;
+      const dateInRange = !this.startDate || (appointment.startDateTime >= this.startDate && appointment.startDateTime <= this.endDate);
+      const stateMatches = !this.selectedState || appointment.startDateTime === this.selectedState;
       return dateInRange && stateMatches;
     });
   }
@@ -51,5 +44,26 @@ export class AppointmentComponent implements OnInit {
   onStateChange(event: any) {
     this.selectedState = event.target.value;
     this.filterAppointments();
+  }
+
+  initAppointments() {
+    let customerId = JSON.parse(localStorage.getItem("user"));
+    this.appointmentService.getCustomerAppointments(customerId.id).then(
+      (response: any) => {
+        if (response.status !== 200) throw new Error(response);
+        this.appointments = response.data;
+        this.filteredAppointments = this.appointments;
+      }
+    ).catch(
+      (error) => {
+        // Handle error
+      }
+    ).finally(() => {
+      this.isLoading = false;
+    });
+  }
+
+  showDetail(appointment:Appointment) {
+    this.router.navigate(["/customer/appointments/"+appointment._id]);
   }
 }
