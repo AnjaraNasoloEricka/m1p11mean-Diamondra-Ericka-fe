@@ -10,4 +10,5 @@ export const auth = {
 export const servicesEndpoint = 'services';
 export const employeesEndpoint = 'employees';
 export const schedulesEndpoint = 'schedules';
+export const specialOffersEndpoint = 'specialOffers';
 
