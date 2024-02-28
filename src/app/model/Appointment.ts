@@ -1,10 +1,22 @@
+import { Customer } from "./Customer"
 import { Employees } from "./Employees"
-import { Services } from "./Services"
+import { Services, SpecialOffers } from "./Services"
+
+export type Payment = {
+    date: Date,
+    amount: number
+}
 
 export type Appointment = {
-    _id: String,
-    startDateTime,
+    _id: string,
+    startDateTime: Date,
+    endDateTime: Date,
     services: Services[],
-    totalPrice,
-    employee: Employees       
+    specialOffers: SpecialOffers[],
+    totalPrice: number,
+    leftToPay: number,
+    employee: Employees,
+    client: Customer,
+    payments: Payment[],
+    status: string  
 }

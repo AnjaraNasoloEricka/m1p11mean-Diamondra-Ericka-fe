@@ -1,30 +1,91 @@
-<div class="bg-white shadow-md p-6 rounded-lg">
+<div class="relative flex flex-col min-w-0 w-full mx-auto mb-6 shadow-lg rounded bg-white" >
+  <app-pageloader [isLoading]="isLoading"></app-pageloader>
+</div>
+
+<div class="bg-white shadow-md p-6 rounded-lg" [hidden]="isLoading">
     <div class="flex justify-between">
       <div>
         <h2 class="text-xl font-medium text-gray-800">Appointment Details</h2>
-        <p class="text-gray-600">February 28, 2024 at 10:00 AM</p>
+        <p class="text-gray-600">{{appointment.startDateTime | date : "medium"}}</p>
       </div>
       <div class="text-right">
-        <span class="bg-gray-200 text-gray-800 px-2 py-1 rounded-full">To Do</span>
+        <span class="bg-gray-200 text-gray-800 px-2 py-1 rounded-full">{{appointment.status}}</span>
       </div>
     </div>
     <div class="mt-4">
-      <p class="text-gray-800">Customer:</p>
-      <p class="text-gray-600">John Doe</p>
+      <p class="text-gray-800 text-semibold">Customer:</p>
+      <p class="text-gray-600 text-lg">{{appointment.client.user.name}}</p>
     </div>
     <div class="mt-4">
-      <p class="text-gray-800">Employee:</p>
-      <p class="text-gray-600">Jane Smith</p>
+      <p class="text-gray-800 text-semibold">Employee:</p>
+      <p class="text-gray-600 text-lg">{{appointment.employee.user.name}}</p>
     </div>
     <div class="mt-4">
       <p class="text-gray-800">Services:</p>
       <ul class="list-disc list-inside text-gray-600">
-        <li>Haircut <span class="text-gray-500">$20.00</span></li>
-        <li>Shampoo <span class="text-gray-500">$10.00</span></li>
-        <li>Blow Dry <span class="text-gray-500">$20.00</span></li>
+        <li *ngFor="let service of appointment.services">{{service.name}} <span class="text-gray-500"> ${{service.price | number}}</span></li>
+        <li *ngFor="let specialOffer of appointment.specialOffers">Special Offer<span class="text-gray-500">$10.00</span></li>
       </ul>
     </div>
     
     <hr class="mt-6 border-b-1 border-blueGray-300" />
-    <app-payment></app-payment>
-  </div>
+    <div class="flex flex-wrap mx-4">
+      <div class="relative flex flex-col min-w-0 break-words w-full mb-3">
+          <div class="container mx-auto mt-2 mb-1">
+              <div class="flex justify-between items-center flex-wrap">
+              <div class="col-span-10">
+                  <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                      Appointment Payment
+                    </h6>
+              </div>
+              <div class="col-span-2 flex justify-end">
+                  <app-payment-modal (refreshData)="loadAppointment(appointment._id)" [appointmentId]="appointment._id"></app-payment-modal>
+              </div>
+              </div>
+          </div>
+      </div>
+      <div class="relative flex flex-col min-w-0 break-words w-full">
+          <div class="flex flex-wrap">
+            <div class="w-full lg:w-4/12">
+              <p class="text-gray-800">Total:</p>
+              <p class="text-gray-800 font-medium">${{appointment.totalPrice | number}}</p>
+            </div>
+            <div class="w-full lg:w-4/12 px-4">
+              <p class="text-gray-800">Paid:</p>
+              <p class="text-gray-800 font-medium">${{appointment.totalPrice - appointment.leftToPay | number}}</p>
+            </div>
+            <div class="w-full lg:w-4/12 px-4">
+              <p class="text-gray-800">Left:</p>
+              <p class="text-gray-800 font-medium">${{appointment.leftToPay | number}}</p>
+            </div>
+          </div>
+      </div>
+      <div class="relative flex flex-col min-w-0 break-words w-full my-6 shadow-lg rounded bg-white">
+          <div class="block w-full overflow-x-auto">
+              <!-- Projects table -->
+              <table class="items-center w-full bg-transparent border-collapse">
+              <thead>
+                  <tr>
+                  <th
+                      class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                  >
+                      Date
+                  </th>
+                  <th
+                      class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                  >
+                      Amount
+                  </th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let payment of appointment.payments">
+                      <td class="px-6">{{payment.date | date : 'mediumDate'}}</td>
+                      <td class="px-6">{{payment.amount | number}}</td>
+                  </tr>
+              </tbody>
+              </table>
+          </div>
+      </div>
+  </div>  
+</div>

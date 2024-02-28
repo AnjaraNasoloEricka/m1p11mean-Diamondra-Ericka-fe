@@ -21,3 +21,5 @@ export type SpecialOffer = {
   commissionRate: number,
   commissionValue: number,
 }
+
+export type SpecialOffers = {}
