@@ -1,6 +1,6 @@
 import { Customer } from "./Customer"
 import { Employees } from "./Employees"
-import { Services, SpecialOffers } from "./Services"
+import { Services, SpecialOffer } from "./Services"
 
 export type Payment = {
     date: Date,
@@ -12,7 +12,7 @@ export type Appointment = {
     startDateTime: Date,
     endDateTime: Date,
     services: Services[],
-    specialOffers: SpecialOffers[],
+    specialOffers: SpecialOffer[],
     totalPrice: number,
     leftToPay: number,
     employee: Employees,

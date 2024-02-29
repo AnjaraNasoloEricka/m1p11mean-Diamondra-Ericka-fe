@@ -1,11 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ButtonType, buttonTypesData } from 'src/app/config/data/constant';
-import { Services } from 'src/app/model/Services';
+import { Services, SpecialOffer } from 'src/app/model/Services';
 import { ServicesService } from 'src/app/services/service/services.service';
 import { EmployeesService } from 'src/app/services/employee/employee.service';
 import { AppointmentService } from 'src/app/services/appointment/appointment.service';
 import { Employees } from 'src/app/model/Employees';
+import { SpecialofferService } from 'src/app/services/specialoffer/specialoffer.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-appointment-modal',
@@ -22,31 +24,33 @@ export class AppointmentModalComponent implements OnInit {
   appointmentList : any = [];
   showService : boolean = false;
   selectedServices : Services[] = [];
-
+  specialOffers : SpecialOffer[] = [];
   @Input() buttonTypeValue : string = "create";
+  @Output() refreshData: EventEmitter<void> = new EventEmitter<void>();
 
   buttonType : ButtonType;
 
   formbuilder : FormBuilder = new FormBuilder();
   appointmentform : FormGroup = this.formbuilder.group({
-    startDateTime : ['', [Validators.required]],
+    startDateTime : [Date, [Validators.required]],
     employeeId : ["", [Validators.required]]
   });
 
-  constructor(private servicesService: ServicesService, private employeesSevice: EmployeesService, private appointmentsServices: AppointmentService ) { }
+  constructor(private datePipe : DatePipe, private servicesService: ServicesService, private specialOffresService: SpecialofferService, private employeesSevice: EmployeesService, private appointmentsServices: AppointmentService ) { }
 
   ngOnInit(): void {
     this.isLoading = true;
     this.buttonType = buttonTypesData.find((data) => data.type === this.buttonTypeValue);
-    console.log(this.buttonType);
     let user = JSON.parse(localStorage.getItem("user"));
     if (user.role.label === 'Employee') this.isEmployee = true;
 
     this.initServices();
+    this.initSpecialOffers();
     this.initEmployees();
   }
 
   checkFormValidity(){
+    this.isLoading = true;
     if (this.appointmentform.invalid) {
       if ((this.appointmentform.controls.date.errors?.required) ) {
         this.error = "Date is required";
@@ -63,23 +67,29 @@ export class AppointmentModalComponent implements OnInit {
   }
 
   saveAppointment(){
-    const data = this.appointmentform.value;
-    Object.keys(data).forEach(key => this.formData.append(key, data[key]));
-    this.formData.append("customerId", JSON.parse(localStorage.getItem("user")).id);
-    this.appointmentsServices.insertAppointment(this.formData).then(
+    const customerId =  JSON.parse(localStorage.getItem("user")).id;
+    const postData = {
+      customerId : customerId,
+      employeeId : this.appointmentform.controls["employeeId"].value,
+      startDateTime : this.appointmentform.controls["startDateTime"].value,
+      services : this.selectedServices
+    }
+    this.appointmentsServices.insertAppointment(postData).then(
       (response : any) => {
         if(response.status !== 200) throw new Error(response);
         this.isLoading = false;
         this.toggleModal();
-        //this.refreshData.emit();
+        this.refreshData.emit();
       }
     ).catch(
       (error) => {
-        Object.keys(data).forEach(key => this.formData.delete(key));
+        console.log(error);
         this.error = error.error.message;
         this.isLoading = false;
       }
-    )
+    ).finally(() => {
+      this.isLoading = false;
+    })
   }
 
   initServices() {
@@ -108,6 +118,18 @@ export class AppointmentModalComponent implements OnInit {
     })
   }
 
+  initSpecialOffers() {
+    this.specialOffresService.getAll().then(
+      (response : any) => {
+        if(response.status !== 200) throw new Error(response);
+        this.specialOffers = response.data;
+      }
+    ).catch(
+      (error) => {}
+    ).finally(() => {
+      this.isLoading = false;
+    })  }
+  
   toggleModal(){
     this.showModal = !this.showModal;
     this.error = undefined;
