@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment',
-  templateUrl: './appointment.component.html',  
+  templateUrl: './appointment.component.html',
 })
 export class AppointmentComponent implements OnInit {
 
@@ -77,19 +77,36 @@ export class AppointmentComponent implements OnInit {
   initAppointments() {
     this.isLoading = true;
     let customerId = JSON.parse(localStorage.getItem("user"));
-    this.appointmentService.getCustomerAppointments(customerId.id).then(
-      (response: any) => {
-        if (response.status !== 200) throw new Error(response);
-        this.appointments = response.data;
-        this.filteredAppointments = this.appointments;
-      }
-    ).catch(
-      (error) => {
-        // Handle error
-      }
-    ).finally(() => {
-      this.isLoading = false;
-    });
+    if(customerId.role.label === "Employee"){
+      this.appointmentService.getEmployeeAppointments().then(
+        (response: any) => {
+          if (response.status !== 200) throw new Error(response);
+          this.appointments = response.data;
+          this.filteredAppointments = this.appointments;
+        }
+      ).catch(
+        (error) => {
+          // Handle error
+        }
+      ).finally(() => {
+        this.isLoading = false;
+      });
+    }
+    else{
+      this.appointmentService.getCustomerAppointments(customerId.id).then(
+        (response: any) => {
+          if (response.status !== 200) throw new Error(response);
+          this.appointments = response.data;
+          this.filteredAppointments = this.appointments;
+        }
+      ).catch(
+        (error) => {
+          // Handle error
+        }
+      ).finally(() => {
+        this.isLoading = false;
+      });
+    }
   }
 
   showDetail(appointment:Appointment) {

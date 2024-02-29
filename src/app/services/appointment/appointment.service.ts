@@ -27,9 +27,9 @@ export class AppointmentService {
     });
   }
 
-  getEmployeeAppointments (data) {
+  getEmployeeAppointments () {
     return new Promise((resolve, reject) => {
-      this.http.get(`${this.baseUrl}/customers/appointments`, data).subscribe(
+      this.http.get(`${this.baseUrl}/appointments`).subscribe(
         (response) => {
           resolve(response);
         },
@@ -51,7 +51,7 @@ export class AppointmentService {
         }
       );
     });
-  } 
+  }
 
   getAppointmentById(id: String) {
     return new Promise((resolve, reject) => {
