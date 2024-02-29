@@ -1,11 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-
-interface Task {
-  id: string;
-  title: string;
-  column: 'todo' | 'in-progress' | 'done';
-}
+import { Appointment } from 'src/app/model/Appointment';
+import { TaskService } from 'src/app/services/task/task.service';
+import { EmployeesService } from 'src/app/services/employee/employee.service';
 
 @Component({
   selector: 'app-task',
@@ -13,35 +10,33 @@ interface Task {
   styleUrls: ['./task.component.css'],
 })
 export class TaskComponent implements OnInit {
-
   isLoading : boolean = false;
+  error : string | undefined;
+  commission : number = 0;
+  employeeUserId : string | undefined = undefined;
+  taskDate : Date | null;
+  
+  toCome = [];
 
-  todo = [
-    'Get to work',
-    'Pick up groceries',
-    'Go home',
-    'Fall asleep'
-  ];
+  done = [];
 
-  done = [
-    'Get up',
-    'Brush teeth',
-    'Take a shower',
-    'Check e-mail',
-    'Walk dog'
-  ];
+  inProgress = [];
 
-  inProgress = [
-    'Take a coffee'
-  ];
-
-  constructor(private cdRef: ChangeDetectorRef) {}
+  constructor(private taskService : TaskService, private employeeService : EmployeesService) {}
 
   ngOnInit() {
+    this.employeeUserId = JSON.parse(localStorage.getItem("user")).id;
+    this.loadData(new Date);
   }
 
+  onTaskDateChange(event) {
+    this.taskDate = event.target.value ? new Date(event.target.value) : null;
+    this.loadData(this.taskDate);
+  }
+    
+
   // The key function to handle drag and drop events
-  drop(event: CdkDragDrop<Task[]>) {
+  drop(event: CdkDragDrop<Appointment[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -49,13 +44,30 @@ export class TaskComponent implements OnInit {
                         event.container.data,
                         event.previousIndex,
                         event.currentIndex);
+      event.container
+      
     }
   }
 
   /** Prevents dragging items when they're not supposed to be moved */
-  shouldDrag(task: Task): boolean {
+  shouldDrag(appointment: Appointment): boolean {
     // Example: you could add conditions here, like disabling drag for completed tasks
     return true; 
   }
 
+  loadData(date : Date) {
+    this.taskService.getEmployeeTask(this.employeeUserId, date).then(
+      (response : any) => {
+        if(response.status !== 200) throw new Error(response);
+        this.commission = response.data.commission;
+        this.toCome = response.data.toCome;
+        this.inProgress = response.data.inProgress;
+        this.done = response.data.done;
+      }
+    ).catch(
+      (error) => {
+        this.error = error.error.message;
+      }
+    )
+  }
 }

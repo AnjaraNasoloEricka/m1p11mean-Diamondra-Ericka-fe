@@ -22,13 +22,15 @@
             <div class="flex flex-col mr-4 w-full">
               <h2 class="mb-2">
                 <span class="text-lg font-bold text-green-600">Comission: </span>
-                <span class="text-lg font-bold text-blueGray-500">50000</span></h2>
+                <span class="text-lg font-bold text-blueGray-500">${{commission | number}}</span></h2>
               </div>
             <div class="flex mr-4 w-full justify-end">
               <label for="endDate" class="mb-2">Date:</label>
               <input 
                 class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring ease-linear transition-all duration-150"
                 type="date"
+                [(ngModel)]="taskDate" 
+                (change)="onTaskDateChange($event)"
                 id="endDate" 
               />
             </div>
@@ -40,17 +42,17 @@
                 <div
                   cdkDropList
                   #todoList="cdkDropList"
-                  [cdkDropListData]="todo"
+                  [cdkDropListData]="toCome"
                   [cdkDropListConnectedTo]="[inProgressList, doneList]"
                   class="example-list"
                   (cdkDropListDropped)="drop($event)">
               
-                  <div cdkDrag *ngFor="let item of todo" class="example-box bg-white shadow-md px-3 rounded-lg">
-                    <span class="text-xl font-semibold text-gray-800 mt-1">John Doe</span>
-                    <p class="text-gray-700">February 28, 2024</p>
-                    <p class="text-gray-700">10:00 - 11:00</p>
+                  <div cdkDrag *ngFor="let appointment of toCome" class="example-box bg-white shadow-md px-3 rounded-lg">
+                    <span class="text-xl font-semibold text-gray-800 mt-1">{{appointment.client.user.name}}</span>
+                    <p class="text-gray-700">{{appointment.startDateTime | date : "mediumDate"}}</p>
+                    <p class="text-gray-700">{{appointment.startDateTime | date : "mediumTime"}}</p>
                     <p class="text-gray-700">Haircut, Shampoo, Blow Dry</p>
-                    <p class="text-gray-700">Price: $50</p>                    
+                    <p class="text-gray-700">Price: ${{appointment.totalPrice | number}}</p>                    
                   </div>
                 </div>
               </div>
@@ -64,10 +66,13 @@
                   [cdkDropListConnectedTo]="[doneList]"
                   class="example-list"
                   (cdkDropListDropped)="drop($event)">
-                <div 
-                  class="example-box"
-                  *ngFor="let item of inProgress" cdkDrag>{{item}}
-                </div>
+                  <div cdkDrag *ngFor="let appointment of inProgress" class="example-box bg-white shadow-md px-3 rounded-lg">
+                    <span class="text-xl font-semibold text-gray-800 mt-1">{{appointment.client.user.name}}</span>
+                    <p class="text-gray-700">{{appointment.startDateTime | date : "mediumDate"}}</p>
+                    <p class="text-gray-700">{{appointment.startDateTime | date : "mediumTime"}}</p>
+                    <p class="text-gray-700">Haircut, Shampoo, Blow Dry</p>
+                    <p class="text-gray-700">Price: ${{appointment.totalPrice | number}}</p>                    
+                  </div>
               </div>
               </div>
               <div class="example-container">
@@ -80,10 +85,13 @@
                   [cdkDropListConnectedTo]="[]"
                   class="example-list"
                   (cdkDropListDropped)="drop($event)">
-                <div 
-                  class="example-box"
-                  *ngFor="let item of done" cdkDrag>{{item}}
-                </div>
+                  <div cdkDrag *ngFor="let appointment of done" class="example-box bg-white shadow-md px-3 rounded-lg">
+                    <span class="text-xl font-semibold text-gray-800 mt-1">{{appointment.client.user.name}}</span>
+                    <p class="text-gray-700">{{appointment.startDateTime | date : "mediumDate"}}</p>
+                    <p class="text-gray-700">{{appointment.startDateTime | date : "mediumTime"}}</p>
+                    <p class="text-gray-700">Haircut, Shampoo, Blow Dry</p>
+                    <p class="text-gray-700">Price: ${{appointment.totalPrice | number}}</p>                    
+                  </div>
               </div>
             </div>
         </div>
