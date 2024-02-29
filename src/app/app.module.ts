@@ -94,6 +94,7 @@ import { ExpenseComponent } from './views/expense/expense/expense.component';
 
 // configuration for socket.io
 const config: SocketIoConfig = { url: URL.baseUrl , options: {
+  transports: ['websocket']
 } };
 // configuration for socket.io
 
