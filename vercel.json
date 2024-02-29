@@ -1,5 +1,7 @@
 {
   "functions": {
-    "memory": 2048
+    "memory": {
+      "max": 2048
+    }
   }
 }
