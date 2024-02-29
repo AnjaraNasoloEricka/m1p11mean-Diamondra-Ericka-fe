@@ -29,4 +29,33 @@ export class EmployeesService extends CrudService<Employees>{
     })
   }
 
+  // Insert
+  insert(data : any) {
+    return new Promise((resolve, reject) => {
+      this.http.post(`${this.baseUrl}/${this.crudEndpoint}`, data).subscribe(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
+  // update
+  update(data : any, id : String) {
+    return new Promise((resolve, reject) => {
+      this.http.put(`${this.baseUrl}/${this.crudEndpoint}/${id}`, data).subscribe(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
+
 }
