@@ -94,6 +94,7 @@ import { DatePipe } from '@angular/common'
 import { SpecialofferComponent } from './views/admin/specialoffer/specialoffer/specialoffer.component';
 import { SpecialofferModalComponent } from './components/modal/specialoffer.modal/specialoffer.modal/specialoffer.modal.component';
 import { DetailspecialofferModalComponent } from './components/modal/specialoffer.modal/specialoffer.modal/detail/detailspecialoffer.modal/detailspecialoffer.modal.component';
+import { ExpenseComponent } from './views/expense/expense/expense.component';
 
 // configuration for socket.io
 const config: SocketIoConfig = { url: URL.baseUrl , options: {
@@ -162,6 +163,7 @@ const config: SocketIoConfig = { url: URL.baseUrl , options: {
     SpecialofferComponent,
     SpecialofferModalComponent,
     DetailspecialofferModalComponent,
+    ExpenseComponent,
   ],
   imports: [
     BrowserModule,
