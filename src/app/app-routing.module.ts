@@ -57,6 +57,7 @@ const routes: Routes = [
     children: [
       { path: "dashboard", component: DashboardComponent },
       { path: "appointments", component : AppointmentComponent},
+      { path: "appointments/:id", component : AppointmentDetailComponent},
       { path: "profile", component : ProfileEmployeeComponent},
       { path: "tasks", component: TaskComponent },
       { path: "", redirectTo: "dashboard", pathMatch: "full" },

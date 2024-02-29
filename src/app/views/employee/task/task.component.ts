@@ -2,7 +2,9 @@ import { Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { Appointment } from 'src/app/model/Appointment';
 import { TaskService } from 'src/app/services/task/task.service';
-import { EmployeesService } from 'src/app/services/employee/employee.service';
+import { AppointmentService } from 'src/app/services/appointment/appointment.service';
+import { DatePipe } from '@angular/common'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task',
@@ -14,7 +16,7 @@ export class TaskComponent implements OnInit {
   error : string | undefined;
   commission : number = 0;
   employeeUserId : string | undefined = undefined;
-  taskDate : Date | null;
+  taskDate : string | null;
   
   toCome = [];
 
@@ -22,16 +24,17 @@ export class TaskComponent implements OnInit {
 
   inProgress = [];
 
-  constructor(private taskService : TaskService, private employeeService : EmployeesService) {}
+  constructor(private taskService : TaskService, private appointmentService : AppointmentService, private datePipe : DatePipe, private router: Router) {}
 
   ngOnInit() {
     this.employeeUserId = JSON.parse(localStorage.getItem("user")).id;
+    this.taskDate = this.datePipe.transform(new Date, "yyyy-MM-dd");
     this.loadData(new Date);
   }
 
   onTaskDateChange(event) {
-    this.taskDate = event.target.value ? new Date(event.target.value) : null;
-    this.loadData(this.taskDate);
+    this.taskDate = event.target.value ? event.target.value : null;
+    this.loadData(new Date(this.taskDate));
   }
     
 
@@ -44,8 +47,21 @@ export class TaskComponent implements OnInit {
                         event.container.data,
                         event.previousIndex,
                         event.currentIndex);
-      event.container
       
+      const droppedAppointment = event.item.data as Appointment;
+      console.log(event.item.data);
+      switch (event.container.id) {
+        case 'cdk-drop-list-0':
+          this.appointmentService.updateAppointmentStatus(droppedAppointment._id, "toCome")
+          break;
+        case 'cdk-drop-list-1':
+          this.appointmentService.updateAppointmentStatus(droppedAppointment._id, "inProgress")
+          break;
+        case 'cdk-drop-list-2':
+          this.appointmentService.updateAppointmentStatus(droppedAppointment._id, "done")
+          break;
+      }
+      this.loadData(new Date(this.taskDate));
     }
   }
 
@@ -69,5 +85,9 @@ export class TaskComponent implements OnInit {
         this.error = error.error.message;
       }
     )
+  }
+
+  showDetail(appointment:Appointment) {
+    this.router.navigate(["/employee/appointments/"+appointment._id]);
   }
 }
