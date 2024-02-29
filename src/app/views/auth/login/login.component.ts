@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { UserAuthService } from "src/app/services/auth/user-auth.service";
 import { Router } from "@angular/router";
+import { LogoutService } from "src/app/services/utils/logout.service";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   error : string | undefined;
   isLoading : boolean = false;
 
-  constructor(private userAuthService : UserAuthService, private router: Router) {}
+  constructor(private logoutService : LogoutService, private userAuthService : UserAuthService, private router: Router) {}
 
   /* check if form values are valid and return error if not*/
   checkFormValidity(){
@@ -64,6 +65,8 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.logoutService.logout();
+  }
 
 }

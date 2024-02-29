@@ -6,9 +6,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerSidebarComponent implements OnInit {
   collapseShow = "hidden";
-  constructor() {}
 
   ngOnInit() {}
+
   toggleCollapseShow(classes) {
     this.collapseShow = classes;
   }
