@@ -11,8 +11,8 @@ export class LoginComponent implements OnInit {
 
   formBuiled = new FormBuilder();
   loginForm: FormGroup = new FormGroup({
-    email: this.formBuiled.control("", [Validators.required, Validators.email, Validators.minLength(1)]),
-    password: this.formBuiled.control("", [Validators.required, Validators.minLength(1)]),
+    email: this.formBuiled.control("emp3@gmail.com", [Validators.required, Validators.email, Validators.minLength(1)]),
+    password: this.formBuiled.control("emp3;;;", [Validators.required, Validators.minLength(1)]),
   });
   error : string | undefined;
   isLoading : boolean = false;
@@ -47,11 +47,11 @@ export class LoginComponent implements OnInit {
         if (user.role.label === "Customer"){
           this.router.navigate(["/customer/home"]);
           return;
-        } 
+        }
         if (user.role.label == "Employee"){
           this.router.navigate(["/employee/dashboard"]);
           return;
-        } 
+        }
         this.router.navigate(["/admin/dashboard"]);
         return;
       }
