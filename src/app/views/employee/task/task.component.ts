@@ -43,13 +43,8 @@ export class TaskComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
-      
       const droppedAppointment = event.item.data as Appointment;
-      console.log(event.item.data);
+
       switch (event.container.id) {
         case 'cdk-drop-list-0':
           this.appointmentService.updateAppointmentStatus(droppedAppointment._id, "toCome")
@@ -58,9 +53,19 @@ export class TaskComponent implements OnInit {
           this.appointmentService.updateAppointmentStatus(droppedAppointment._id, "inProgress")
           break;
         case 'cdk-drop-list-2':
+          if (droppedAppointment.leftToPay > 0) {
+            this.error = "You can't mark an appointment as done if it's not fully paid";
+            return;
+          }
           this.appointmentService.updateAppointmentStatus(droppedAppointment._id, "done")
           break;
       }
+
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+        
       this.loadData(new Date(this.taskDate));
     }
   }

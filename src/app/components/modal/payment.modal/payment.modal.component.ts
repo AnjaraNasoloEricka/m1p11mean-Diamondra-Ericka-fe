@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { th } from 'date-fns/locale';
 import { ButtonType, buttonTypesData } from 'src/app/config/data/constant';
+import { Appointment } from 'src/app/model/Appointment';
 import { AppointmentService } from 'src/app/services/appointment/appointment.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class PaymentModalComponent implements OnInit {
   isLoading : boolean = false;
   buttonType : ButtonType;
   @Input() buttonTypeValue : string = "create";
-  @Input() appointmentId : string | undefined = undefined;
+  @Input() appointment : Appointment | undefined = undefined;
   @Output() refreshData: EventEmitter<void> = new EventEmitter<void>();
 
   error : string | undefined;
@@ -31,6 +32,7 @@ export class PaymentModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.buttonType = buttonTypesData.find((data) => data.type === this.buttonTypeValue);
+
   }
 
   checkFormValidity() {
@@ -50,9 +52,10 @@ export class PaymentModalComponent implements OnInit {
   }
 
   savePayment() {
+    this.isLoading = true;
     const data = this.paymentForm.value;
     Object.keys(data).forEach(key => this.formData.append(key, data[key]));
-    this.appointmentService.savePayment(data, this.appointmentId).then(
+    this.appointmentService.savePayment(data, this.appointment._id).then(
       (response : any) => {
         if(response.status !== 200) throw new Error(response);
         this.isLoading = false;

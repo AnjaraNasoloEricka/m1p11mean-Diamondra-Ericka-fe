@@ -43,8 +43,8 @@
                       Appointment Payment
                     </h6>
               </div>
-              <div class="col-span-2 flex justify-end">
-                  <app-payment-modal (refreshData)="loadAppointment(appointment._id)" [appointmentId]="appointment._id"></app-payment-modal>
+              <div class="col-span-2 flex justify-end" *ngIf="notPaid">
+                  <app-payment-modal (refreshData)="loadAppointment(appointment._id)" [appointment]="appointment"></app-payment-modal>
               </div>
               </div>
           </div>

@@ -35,7 +35,12 @@
               />
             </div>
           </div>
-        <div class="grid grid-cols-3 gap-4">
+          <div *ngIf="error" class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-500">
+            <span class="text-xs inline-block align-middle mr-8">
+              <b class="capitalize">Error: </b> {{ error}}
+            </span>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
             <div class="example-container">
                 <h2 class="text-xl font-medium text-black mb-2">To do</h2>
               
@@ -47,7 +52,7 @@
                   class="example-list"
                   (cdkDropListDropped)="drop($event)">
               
-                  <div cdkDrag *ngFor="let appointment of toCome" [cdkDragData]="appointment" class="example-box bg-white shadow-md px-3 rounded-lg">
+                  <div cdkDrag *ngFor="let appointment of toCome" [cdkDragData]="appointment" (click)="showDetail(appointment)" class="example-box bg-white shadow-md px-3 rounded-lg">
                     <span class="text-xl font-semibold text-gray-800 mt-1">{{appointment.client.user.name}}</span>
                     <p class="text-gray-700">{{appointment.startDateTime | date : "mediumDate"}}</p>
                     <p class="text-gray-700">{{appointment.startDateTime | date : "mediumTime"}}</p>
@@ -70,7 +75,7 @@
                   [cdkDropListConnectedTo]="[doneList]"
                   class="example-list"
                   (cdkDropListDropped)="drop($event)">
-                  <div cdkDrag *ngFor="let appointment of inProgress" [cdkDragData]="appointment" class="example-box bg-white shadow-md px-3 rounded-lg">
+                  <div cdkDrag *ngFor="let appointment of inProgress" [cdkDragData]="appointment" (click)="showDetail(appointment)" class="example-box bg-white shadow-md px-3 rounded-lg">
                     <span class="text-xl font-semibold text-gray-800 mt-1">{{appointment.client.user.name}}</span>
                     <p class="text-gray-700">{{appointment.startDateTime | date : "mediumDate"}}</p>
                     <p class="text-gray-700">{{appointment.startDateTime | date : "mediumTime"}}</p>

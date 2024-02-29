@@ -12,6 +12,7 @@ export class AppointmentDetailComponent implements OnInit {
 
   appointment : Appointment;
   isLoading : boolean = false;
+  notPaid : boolean = true;
 
   constructor(private activatedRoute: ActivatedRoute, private appointmentService : AppointmentService) {}
   
@@ -26,6 +27,9 @@ export class AppointmentDetailComponent implements OnInit {
       (response: any) => {
         if (response.status !== 200) throw new Error(response);
         this.appointment = response.data;
+        if (this.appointment.leftToPay === 0) {
+          this.notPaid = false;
+        }
       }
     ).catch(
       (error) => {

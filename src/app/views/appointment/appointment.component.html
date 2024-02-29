@@ -39,7 +39,7 @@
           </div>
           <div class="flex flex-col">
             <label for="state" class="mb-2">State:</label>
-            <select id="state" class="rounded border p-2" [(ngModel)]="selectedState" (change)="onStateChange($event)">
+            <select id="state" class="rounded border-0 px-3 py-3 bg-white shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" [(ngModel)]="selectedState" (change)="onStateChange($event)">
               <option value="">All status</option>
               <option value="toCome">TO COME</option>
               <option value="inProgress">IN PROGRESS</option>
@@ -49,6 +49,22 @@
         </div>
         <div class="relative flex flex-col min-w-0 w-full mx-auto mb-6 shadow-lg rounded bg-white" >
           <app-pageloader [isLoading]="isLoading"></app-pageloader>
+        </div>
+        <div class="container mx-auto mb-6 bg-white rounded shadow-lg relative flex flex-col min-w-0 w-full" *ngIf="!isLoading && (appointments.length === 0 || filteredAppointments.length === 0)">
+          <div class="px-4">
+            <div class="flex flex-wrap">
+              <div class="w-full col-span-4 mt-4 px-4 flex-1">
+                <div class="max-w-sm rounded overflow-hidden flex items-center">
+                  <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2">No Appointments Found</div>
+                    <p class="text-base text-gray-700">
+                      No appointments found. Please create new appointment.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="grid grid-cols-1 gap-4 -my-6">
           <div *ngFor="let appointment of getCurrentPageAppointments()" class="bg-white rounded shadow-md p-4 flex flex-3 justify-between" (click)="showDetail(appointment)">
