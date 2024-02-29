@@ -76,13 +76,9 @@ import { CardEmployeeComponent } from "./components/cards/card-employee/card-emp
 import { ScheduleModalComponent } from './components/modal/schedule.modal/schedule.modal/schedule.modal.component';
 import { TaskComponent } from './views/employee/task/task.component';
 
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDateRangeInput } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
+
 import { CustomerhomeComponent } from './views/customer/home/customerhome/customerhome.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatCardModule } from '@angular/material/card';
 import { PaymentComponent } from './views/appointment/payment/payment.component';
 import { PaymentModalComponent } from './components/modal/payment.modal/payment.modal.component';
 import { AppointmentDetailComponent } from './views/appointment/appointment-detail/appointment-detail.component';
@@ -173,12 +169,8 @@ const config: SocketIoConfig = { url: URL.baseUrl , options: {
     ReactiveFormsModule,
     CommonModule,
     FormsModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatNativeDateModule,
-    SocketIoModule.forRoot(config),
     DragDropModule,
-    MatCardModule
+    SocketIoModule.forRoot(config),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
