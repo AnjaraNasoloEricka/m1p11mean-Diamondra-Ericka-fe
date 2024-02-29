@@ -41,7 +41,16 @@ export class LoginComponent implements OnInit {
     this.userAuthService.signIn(this.loginForm.value).then((response) => {
       if(response.status === 200){
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+        let user =response.data.user
+        localStorage.setItem("user", JSON.stringify(user));
+        if (user.role.label === "Customer"){
+          this.router.navigate(["/customer/home"]);
+          return;
+        } 
+        if (user.role.label == "Employee"){
+          this.router.navigate(["/employee/dashboard"]);
+          return;
+        } 
         this.router.navigate(["/admin/dashboard"]);
         return;
       }
