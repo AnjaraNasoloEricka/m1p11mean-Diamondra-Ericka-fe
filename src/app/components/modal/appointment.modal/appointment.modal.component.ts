@@ -20,11 +20,14 @@ export class AppointmentModalComponent implements OnInit {
   isEmployee : boolean = false;
   services : Services[] = [];
   employees : Employees[] = [];
+  freeEmployees : Employees[] = [];
   error : string | undefined;
   appointmentList : any = [];
-  showService : boolean = false;
+  showService : boolean = true;
   selectedServices : Services[] = [];
   specialOffers : SpecialOffer[] = [];
+  empIsLoading : boolean = false;
+
   @Input() buttonTypeValue : string = "create";
   @Output() refreshData: EventEmitter<void> = new EventEmitter<void>();
 
@@ -99,7 +102,10 @@ export class AppointmentModalComponent implements OnInit {
         this.services = response.data;
       }
     ).catch(
-      (error) => {}
+      (error) => {
+        this.error = error.message;
+        this.isLoading = false;
+      }
     ).finally(() => {
       this.isLoading = false;
     })
@@ -110,9 +116,13 @@ export class AppointmentModalComponent implements OnInit {
       (response : any) => {
         if(response.status !== 200) throw new Error(response);
         this.employees = response.data;
+        this.freeEmployees = this.employees;
       }
     ).catch(
-      (error) => {}
+      (error) => {
+        this.error = error.message;
+        this.isLoading = false;
+      }
     ).finally(() => {
       this.isLoading = false;
     })
@@ -125,7 +135,10 @@ export class AppointmentModalComponent implements OnInit {
         this.specialOffers = response.data;
       }
     ).catch(
-      (error) => {}
+      (error) => {
+        this.error = error.message;
+        this.isLoading = false;
+      }
     ).finally(() => {
       this.isLoading = false;
     })  }
@@ -149,9 +162,36 @@ export class AppointmentModalComponent implements OnInit {
         this.selectedServices.splice(index, 1);
       }
     }
+    this.loadEmployees();
   }
 
   onDateTimeChange(event: any){
 
+  }
+
+  loadEmployees() {
+    this.empIsLoading = true;
+    const startDateTime = this.appointmentform.controls["startDateTime"].value;
+    if (startDateTime === "") {
+      this.initEmployees();
+      this.empIsLoading = false;
+      return;
+    }
+    const postData = {
+      serviceIds : this.selectedServices
+    };
+    this.employeesSevice.getFreeEmployees(startDateTime, postData).then(
+      (response : any) => {
+        if(response.status !== 200) throw new Error(response);
+        this.freeEmployees = response.data;
+      }
+    ).catch(
+      (error) => {
+        this.error = error.message;
+        this.empIsLoading = false;
+      }
+    ).finally(() => {
+      this.empIsLoading = false;
+    })
   }
 }

@@ -31,6 +31,7 @@
               class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
               formControlName="startDateTime"
               required
+              (change)="loadEmployees()"
             />
           </div>
         </div>
@@ -73,13 +74,15 @@
             >
               Employee
             </label>
+            <i class='fas fa-spinner fa-spin text-xl' *ngIf="empIsLoading"></i>
             <select
+              *ngIf="!empIsLoading"
               formControlName="employeeId"
               class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
               placeholder="Select employee"
               required
             >
-              <option *ngFor="let employee of employees" value="{{employee._id}}">{{employee.user.name}}</option>
+              <option *ngFor="let employee of freeEmployees" value="{{employee._id}}">{{employee.user.name}}</option>
             </select>
           </div>
         </div>
