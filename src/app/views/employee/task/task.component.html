@@ -47,7 +47,7 @@
                   class="example-list"
                   (cdkDropListDropped)="drop($event)">
               
-                  <div cdkDrag *ngFor="let appointment of toCome" class="example-box bg-white shadow-md px-3 rounded-lg">
+                  <div cdkDrag *ngFor="let appointment of toCome" [cdkDragData]="appointment" class="example-box bg-white shadow-md px-3 rounded-lg">
                     <span class="text-xl font-semibold text-gray-800 mt-1">{{appointment.client.user.name}}</span>
                     <p class="text-gray-700">{{appointment.startDateTime | date : "mediumDate"}}</p>
                     <p class="text-gray-700">{{appointment.startDateTime | date : "mediumTime"}}</p>
@@ -66,7 +66,7 @@
                   [cdkDropListConnectedTo]="[doneList]"
                   class="example-list"
                   (cdkDropListDropped)="drop($event)">
-                  <div cdkDrag *ngFor="let appointment of inProgress" class="example-box bg-white shadow-md px-3 rounded-lg">
+                  <div cdkDrag *ngFor="let appointment of inProgress" [cdkDragData]="appointment" class="example-box bg-white shadow-md px-3 rounded-lg">
                     <span class="text-xl font-semibold text-gray-800 mt-1">{{appointment.client.user.name}}</span>
                     <p class="text-gray-700">{{appointment.startDateTime | date : "mediumDate"}}</p>
                     <p class="text-gray-700">{{appointment.startDateTime | date : "mediumTime"}}</p>
@@ -85,7 +85,7 @@
                   [cdkDropListConnectedTo]="[]"
                   class="example-list"
                   (cdkDropListDropped)="drop($event)">
-                  <div cdkDrag *ngFor="let appointment of done" class="example-box bg-white shadow-md px-3 rounded-lg">
+                  <div cdkDrag *ngFor="let appointment of done" [cdkDragData]="appointment" (click)="showDetail(appointment)" class="example-box bg-white shadow-md px-3 rounded-lg">
                     <span class="text-xl font-semibold text-gray-800 mt-1">{{appointment.client.user.name}}</span>
                     <p class="text-gray-700">{{appointment.startDateTime | date : "mediumDate"}}</p>
                     <p class="text-gray-700">{{appointment.startDateTime | date : "mediumTime"}}</p>
