@@ -32,14 +32,14 @@ export class RegisterMessageComponent implements OnInit {
             });
           }
           });
-        }, 3000);
+        }, 3001);
         this.message = this.userAuthService.message;
       } catch (error) {
         this.error = error;
       } finally {
         setTimeout(() => {
         this.isLoading = false;
-        }, 3000);
-      }        
+        }, 3001);
+      }
   }
 }

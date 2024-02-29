@@ -12,3 +12,12 @@ export const employeesEndpoint = 'employees';
 export const schedulesEndpoint = 'schedules';
 export const specialOffersEndpoint = 'specialOffers';
 
+export const statEndpoint = {
+  baseApi : 'stat',
+  earnings : {
+    baseApi : 'ca',
+    day : 'day',
+    month : 'month'
+  }
+}
+
