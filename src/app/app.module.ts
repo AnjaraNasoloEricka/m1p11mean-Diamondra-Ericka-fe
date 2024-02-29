@@ -90,6 +90,7 @@ import { AppointmentDetailComponent } from './views/appointment/appointment-deta
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { URL } from "src/environments/environment";
 import { NotificationalertComponent } from './components/alert/notificationalert/notificationalert.component';
+import { DatePipe } from '@angular/common'
 import { SpecialofferComponent } from './views/admin/specialoffer/specialoffer/specialoffer.component';
 import { SpecialofferModalComponent } from './components/modal/specialoffer.modal/specialoffer.modal/specialoffer.modal.component';
 import { DetailspecialofferModalComponent } from './components/modal/specialoffer.modal/specialoffer.modal/detail/detailspecialoffer.modal/detailspecialoffer.modal.component';
@@ -180,6 +181,7 @@ const config: SocketIoConfig = { url: URL.baseUrl , options: {
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },
+    DatePipe
   ],
   bootstrap: [AppComponent],
 })
