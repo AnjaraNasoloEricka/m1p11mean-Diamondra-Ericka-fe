@@ -1,5 +1,5 @@
 {
-  "build": {
-    "memory": 4096
+  "functions": {
+    "memory": 2048
   }
 }
