@@ -106,9 +106,15 @@ export class EmployeeModalComponent implements OnInit {
   }
 
   saveEmployee() {
-    const data = this.createEmpForm.value;
-    Object.keys(data).forEach(key => this.formData.append(key, data[key]));
-    this.employeesService.insert(this.formData).then(
+    const postData = {
+      user: {
+        name: this.createEmpForm.get('name').value,
+        email: this.createEmpForm.get('email').value,
+        password: this.createEmpForm.get('password').value,
+        phoneNumber: this.createEmpForm.get('phoneNumber').value
+      },
+    };
+    this.employeesService.insert(postData).then(
       (response : any) => {
         if(response.status !== 200) throw new Error(response);
         this.isLoading = false;
@@ -117,7 +123,6 @@ export class EmployeeModalComponent implements OnInit {
       }
     ).catch(
       (error) => {
-        Object.keys(data).forEach(key => this.formData.delete(key));
         this.error = error.message;
         this.isLoading = false;
       }
@@ -125,9 +130,15 @@ export class EmployeeModalComponent implements OnInit {
   }
 
   updateEmployee(){
-    const data = this.updateEmpForm.value;
-    Object.keys(data).forEach(key => this.formData.append(key, data[key]));
-    this.employeesService.update(this.formData,this.employee._id).then(
+    const postData = {
+      user: {
+        name: this.createEmpForm.get('name').value,
+        email: this.createEmpForm.get('email').value,
+        password: this.createEmpForm.get('password').value,
+        phoneNumber: this.createEmpForm.get('phoneNumber').value
+      }
+    };
+    this.employeesService.update(postData,this.employee._id).then(
       (response : any) => {
         if(response.status !== 200) throw new Error(response);
         this.isLoading = false;
@@ -136,7 +147,6 @@ export class EmployeeModalComponent implements OnInit {
       }
     ).catch(
       (error) => {
-        Object.keys(data).forEach(key => this.formData.delete(key));
         this.error = error.message;
         this.isLoading = false;
 
