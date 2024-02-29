@@ -90,10 +90,12 @@ import { AppointmentDetailComponent } from './views/appointment/appointment-deta
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { URL } from "src/environments/environment";
 import { NotificationalertComponent } from './components/alert/notificationalert/notificationalert.component';
+import { SpecialofferComponent } from './views/admin/specialoffer/specialoffer/specialoffer.component';
+import { SpecialofferModalComponent } from './components/modal/specialoffer.modal/specialoffer.modal/specialoffer.modal.component';
+import { DetailspecialofferModalComponent } from './components/modal/specialoffer.modal/specialoffer.modal/detail/detailspecialoffer.modal/detailspecialoffer.modal.component';
 
 // configuration for socket.io
 const config: SocketIoConfig = { url: URL.baseUrl , options: {
-  withCredentials: true
 } };
 // configuration for socket.io
 
@@ -156,6 +158,9 @@ const config: SocketIoConfig = { url: URL.baseUrl , options: {
     PaymentModalComponent,
     AppointmentDetailComponent,
     NotificationalertComponent,
+    SpecialofferComponent,
+    SpecialofferModalComponent,
+    DetailspecialofferModalComponent,
   ],
   imports: [
     BrowserModule,

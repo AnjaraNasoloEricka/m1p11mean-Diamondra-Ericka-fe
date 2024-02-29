@@ -31,6 +31,7 @@ import { ProfileEmployeeComponent } from "./views/employee/profile/profile.emplo
 import { CustomerhomeComponent } from "./views/customer/home/customerhome/customerhome.component";
 import { TaskComponent } from './views/employee/task/task.component';
 import { AppointmentDetailComponent } from './views/appointment/appointment-detail/appointment-detail.component';
+import { SpecialofferComponent } from "./views/admin/specialoffer/specialoffer/specialoffer.component";
 
 const routes: Routes = [
   // admin views
@@ -43,7 +44,7 @@ const routes: Routes = [
       { path: "tables", component: TablesComponent },
       { path: "services", component : ServiceComponent},
       { path: "employees", component : EmployeeComponent},
-      { path: "profile", component : ProfileEmployeeComponent},
+      { path: "specialoffer", component : SpecialofferComponent},
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
     ],
     canActivate : [AuthGuard]

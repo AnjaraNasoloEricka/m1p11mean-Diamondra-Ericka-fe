@@ -11,4 +11,15 @@ export type Services = {
   imageUrl : string
 }
 
+export type SpecialOffer = {
+  _id : string, 
+  startDate: Date,
+  endDate: Date,
+  services: Services[],
+  reductionType: string,
+  reductionValue: number,
+  commissionRate: number,
+  commissionValue: number,
+}
+
 export type SpecialOffers = {}
