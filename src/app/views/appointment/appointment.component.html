@@ -8,7 +8,7 @@
                 <label class="text-lg font-bold text-red-600">Appointments</label>
             </div>
             <div class="col-span-2 flex justify-end">
-                <app-appointment-modal></app-appointment-modal>
+                <app-appointment-modal (refreshData)="initAppointments()"></app-appointment-modal>
             </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
               type="date" 
               id="startDate" 
               [(ngModel)]="startDate" 
-              (ngModelChange)="onStartDateChange($event)"
+              (change)="onStartDateChange($event)"
             />
           </div>
           <div class="flex flex-col mr-4 w-full">
@@ -34,15 +34,16 @@
               type="date"
               id="endDate" 
               [(ngModel)]="endDate" 
-              (ngModelChange)="onEndDateChange($event)"
+              (change)="onEndDateChange($event)"
             />
           </div>
           <div class="flex flex-col">
             <label for="state" class="mb-2">State:</label>
-            <select id="state" class="rounded border p-2" [(ngModel)]="selectedState" (ngModelChange)="onStateChange($event)">
-              <option value="">All States</option>
-              <option value="CA">California</option>
-              <option value="NY">New York</option>
+            <select id="state" class="rounded border p-2" [(ngModel)]="selectedState" (change)="onStateChange($event)">
+              <option value="">All status</option>
+              <option value="toCome">TO COME</option>
+              <option value="inProgress">IN PROGRESS</option>
+              <option value="done">DONE</option>
               </select>
           </div>
         </div>
@@ -50,87 +51,41 @@
           <app-pageloader [isLoading]="isLoading"></app-pageloader>
         </div>
         <div class="grid grid-cols-1 gap-4 -my-6">
-          <div *ngFor="let appointment of appointments" class="bg-white rounded shadow-md p-4 flex flex-3 justify-between" (click)="showDetail(appointment)">
+          <div *ngFor="let appointment of getCurrentPageAppointments()" class="bg-white rounded shadow-md p-4 flex flex-3 justify-between" (click)="showDetail(appointment)">
             <div>
-                <span class="text-lg font-semibold text-gray-800 mt-1">Haircut, Shampoo, Blow Dry</span> 
+                <p>
+                  <span *ngFor="let service of appointment.services; let j = index" class="text-lg font-semibold text-gray-800 mt-1">
+                    {{ service.name }}{{ j < appointment.services.length - 1 ? ', ' : '' }}
+                  </span>
+                </p>
                 <p class="text-gray-800">{{ appointment?.startDateTime | date:'medium' }}</p>
               </div>
             <div>
                 <p class="text-gray-700"><span class="font-semibold">Employee: </span>{{ appointment.employee?.user.name}}</p>                       
-                <p class="text-gray-700"><span class="font-semibold">Price: </span> ${{appointment.totalPrice}}</p>                    
+                <p class="text-gray-700"><span class="font-semibold">Price: </span> ${{appointment.totalPrice | number}}</p>                    
             </div>
             <div class="flex justify-end">
-              <i class="fa fa-check text-green-600"></i>           
-              <i class="fa fa-spinner text-orange-500"></i>           
-              <i class="fa fa-ban text-red-500"></i>           
-              <i class="fa fa-calendar text-lightBlue-500"></i>           
+              <i *ngIf="appointment.status == 'done'" class="fa fa-check text-green-600 text-xl"></i>           
+              <i *ngIf="appointment.status == 'inProgress'"class="fa fa-spinner text-orange-500 text-xl"></i>           
+              <i *ngIf="appointment.status == 'abort'" class="fa fa-ban text-red-500 text-xl"></i>           
+              <i *ngIf="appointment.status == 'toCome'" class="fa fa-calendar text-blue-500 text-xl"></i>           
             </div>
             
           </div>
         </div>
       </div>
-          <!-- <div class="flex justify-center">
-            <div class="flex-grow flex justify-between items-center">
-              <div class="flex space-x-2">
-                <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded-md shadow-sm shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" mwlCalendarPreviousView (click)="closeOpenMonthViewDay()">
-                  Previous
-                </button>
-                <button class="border border-gray-300 text-gray-700 font-bold py-2 px-4 rounded-md shadow-sm shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" mwlCalendarToday (click)="setViewDate(today)">
-                  Today
-                </button>
-                <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded-md shadow-sm shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" mwlCalendarNextView (click)="closeOpenMonthViewDay()">
-                  Next
-                </button>
-              </div>
-              <h3 class="text-xl font-bold">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
-              <div class="flex space-x-2">
-                <button class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md shadow-sm shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
-                  Month
-                </button>
-                <button class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md shadow-sm shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
-                  Week
-                </button>
-                <button class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md shadow-sm shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
-                  Day
-                </button>
-              </div>
-            </div>
-          </div> -->
-        <!--           
-          <div [ngSwitch]="view">
-            <mwl-calendar-month-view
-              *ngSwitchCase="CalendarView.Month"
-              [viewDate]="viewDate"
-              [events]="events"
-              [refresh]="refresh"
-              [activeDayIsOpen]="activeDayIsOpen"
-              (dayClicked)="dayClicked($event.day)"
-              (eventClicked)="handleEvent('Clicked', $event.event)"
-              (eventTimesChanged)="eventTimesChanged($event)"
-            >
-            </mwl-calendar-month-view>
-            <mwl-calendar-week-view
-              *ngSwitchCase="CalendarView.Week"
-              [viewDate]="viewDate"
-              [events]="events"
-              [refresh]="refresh"
-              (eventClicked)="handleEvent('Clicked', $event.event)"
-              (eventTimesChanged)="eventTimesChanged($event)"
-            >
-            </mwl-calendar-week-view>
-            <mwl-calendar-day-view
-              *ngSwitchCase="CalendarView.Day"
-              [viewDate]="viewDate"
-              [events]="events"
-              [refresh]="refresh"
-              (eventClicked)="handleEvent('Clicked', $event.event)"
-              (eventTimesChanged)="eventTimesChanged($event)"
-            >
-            </mwl-calendar-day-view>
-          </div> -->
-          <!-- <app-appointment-calendar></app-appointment-calendar> -->
+      <!-- Pagination -->
+    <div class="flex justify-center mt-10">
+      <button class="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded"
+              (click)="previousPage()" [disabled]="!isPreviousPageAvailable()" [class.opacity-50]="!isPreviousPageAvailable()">
+        Previous
+      </button>
+      <button class="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded ml-2"
+              (click)="nextPage()" [disabled]="!isNextPageAvailable()" [class.opacity-50]="!isNextPageAvailable()">
+        Next
+      </button>
     </div>
+    <!-- Pagination -->
+    </div>
+    
 </div>

@@ -9,7 +9,12 @@
         <p class="text-gray-600">{{appointment.startDateTime | date : "medium"}}</p>
       </div>
       <div class="text-right">
-        <span class="bg-gray-200 text-gray-800 px-2 py-1 rounded-full">{{appointment.status}}</span>
+        <span class="px-2 py-1">              
+          <i *ngIf="appointment.status == 'done'" class="fa fa-check text-green-600 text-xl"></i>           
+          <i *ngIf="appointment.status == 'inProgress'"class="fa fa-spinner text-orange-500 text-xl"></i>           
+          <i *ngIf="appointment.status == 'abort'" class="fa fa-ban text-red-500 text-xl"></i>           
+          <i *ngIf="appointment.status == 'toCome'" class="fa fa-calendar text-blue-500 text-xl"></i>           
+        </span>
       </div>
     </div>
     <div class="mt-4">

@@ -12,9 +12,11 @@ export class AppointmentComponent implements OnInit {
   isLoading : boolean = false;
   appointments: Appointment[] = [];
   filteredAppointments: Appointment[] = [];
-  startDate: Date | null = null;
-  endDate: Date | null = null;
+  startDate: string | null = null;
+  endDate: string | null = null;
   selectedState: string | null = null;
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
 
   constructor(private appointmentService : AppointmentService, private router: Router) { }
 
@@ -24,20 +26,46 @@ export class AppointmentComponent implements OnInit {
   }
 
   filterAppointments() {
+    this.currentPage = 1;
     this.filteredAppointments = this.appointments.filter(appointment => {
-      const dateInRange = !this.startDate || (appointment.startDateTime >= this.startDate && appointment.startDateTime <= this.endDate);
+      const startDate = new Date(this.startDate);
+      const endDate = new Date(this.endDate);
+      const dateInRange = !this.startDate || (appointment.startDateTime >= startDate && appointment.startDateTime <= endDate);
       const stateMatches = !this.selectedState || appointment.status === this.selectedState;
       return dateInRange && stateMatches;
     });
   }
 
+  getCurrentPageAppointments(): Appointment[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.filteredAppointments.slice(startIndex, endIndex);
+  }
+
+  nextPage() {
+    this.currentPage++;
+  }
+
+  previousPage() {
+    this.currentPage--;
+  }
+
+  isPreviousPageAvailable(): boolean {
+    return this.currentPage > 1;
+  }
+
+  isNextPageAvailable(): boolean {
+    return this.currentPage < Math.ceil(this.filteredAppointments.length / this.itemsPerPage);
+  }
+
+
   onStartDateChange(event: any) {
-    this.startDate = event.target.value ? new Date(event.target.value) : null;
+    this.startDate = event.target.value ? event.target.value : null;
     this.filterAppointments();
   }
 
   onEndDateChange(event: any) {
-    this.endDate = event.target.value ? new Date(event.target.value) : null;
+    this.endDate = event.target.value ? event.target.value : null;
     this.filterAppointments();
   }
 
