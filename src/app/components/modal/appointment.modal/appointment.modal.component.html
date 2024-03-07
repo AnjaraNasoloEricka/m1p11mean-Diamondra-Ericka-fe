@@ -1,0 +1,113 @@
+<button [hidden]="isEmployee" [ngClass]="'bg-'+ buttonType.color + '-500'" class="text-white font-bold text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="toggleModal()">
+    <i [ngClass]="buttonType.icon" ></i>
+    {{ buttonType.label }}
+  </button>
+  <div *ngIf="showModal"
+  class="flex-col min-w-0 break-words overflow-x-hidden w-3/4 overflow-y-auto fixed m-auto my-6 inset-0 z-50 shadow-lg rounded-lg bg-blueGray-100 border-0"
+>
+  <!-- <div *ngIf="showModal" class="overflow-x-hidden w-full overflow-y-auto mb-6 fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex"> -->
+
+  <div class="rounded-t bg-white mb-0 px-6 py-6">
+    <div class="text-center flex justify-between">
+      <h6 class="text-blueGray-700 text-xl font-bold">{{ "Make new Appointment" | uppercase }}</h6>
+      <button class="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="toggleModal()">
+        <i class="fa fa-times"></i>
+    </button>
+    </div>
+  </div>
+  <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+    <form [formGroup]="appointmentform" (ngSubmit)="checkFormValidity()">
+      <div class="flex flex-wrap">
+        <div class="w-full px-4">
+          <div class="relative w-full mb-3">
+            <label
+              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              htmlFor="grid-password"
+            >
+              Date
+            </label>
+            <input
+              type="datetime-local"
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+              formControlName="startDateTime"
+              required
+              (change)="loadEmployees()"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-wrap">
+        <div class="w-full px-4">
+          <div class="relative w-full mb-3">
+            <label
+              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              htmlFor="grid-password"
+            >
+              Services
+            </label>
+            <div class="flex justify-between items-center px-3 py-2 bg-white rounded-t-md">
+              <span class="text-gray-700">Select service</span>
+              <button (click)="toogleService()" type="button" class="focus:outline-none text-gray-500 hover:text-gray-700" aria-haspopup="true" aria-expanded="true">
+                <svg class="h-4 w-4 transform transition-transform" [class.rotate-180]="showService" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path *ngIf="!showService" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  <path *ngIf="showService" fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" />
+                </svg>
+              </button>
+            </div>
+  
+            <div class="p-3 space-y-2" *ngIf="showService">
+              <label class="flex items-center space-x-2" *ngFor="let service of services">
+                <input type="checkbox" [value]="service._id" class="form-checkbox h-5 w-5 text-emerald-500" (change)="toogleCheckboxService($event)">
+                <span class="text-gray-700">{{ service.name }}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap">
+        <div class="w-full lg:w-12/12 px-4">
+          <div class="relative w-full mb-3">
+            <label
+              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              htmlFor="grid-password"
+            >
+              Employee
+            </label>
+            <i class='fas fa-spinner fa-spin text-xl' *ngIf="empIsLoading"></i>
+            <select
+              *ngIf="!empIsLoading"
+              formControlName="employeeId"
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+              placeholder="Select employee"
+              required
+            >
+              <option *ngFor="let employee of freeEmployees" value="{{employee._id}}">{{employee.user.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <div *ngIf="error" class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-500">
+        <span class="text-xs inline-block align-middle mr-8">
+          <b class="capitalize">Error: </b> {{ error}}
+        </span>
+      </div>
+
+      <div class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+        <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="toggleModal()">
+            Close
+        </button>
+        <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="submit">
+          <i class='fas fa-spinner fa-spin text-xl' *ngIf="isLoading"></i>
+          <span *ngIf="!isLoading">Save Changes</span>
+        </button>
+         
+    </div>
+    </form>
+  </div>
+</div>
+  <div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black">
+  </div>
+  

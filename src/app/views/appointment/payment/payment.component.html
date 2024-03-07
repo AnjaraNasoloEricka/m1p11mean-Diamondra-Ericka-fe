@@ -1,0 +1,66 @@
+
+<div class="flex flex-wrap mx-4">
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-3">
+        <div class="container mx-auto mt-2 mb-1">
+            <div class="flex justify-between items-center flex-wrap">
+            <div class="col-span-10">
+                <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                    Appointment Payment
+                  </h6>
+            </div>
+            <div class="col-span-2 flex justify-end">
+                <app-payment-modal></app-payment-modal>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="relative flex flex-col min-w-0 break-words w-full">
+        <div class="flex flex-wrap">
+          <div class="w-full lg:w-4/12">
+            <p class="text-gray-800">Total:</p>
+            <p class="text-gray-800 font-medium">$50.00</p>
+          </div>
+          <div class="w-full lg:w-4/12 px-4">
+            <p class="text-gray-800">Paid:</p>
+            <p class="text-gray-800 font-medium">$50.00</p>
+          </div>
+          <div class="w-full lg:w-4/12 px-4">
+            <p class="text-gray-800">Left:</p>
+            <p class="text-gray-800 font-medium">$50.00</p>
+          </div>
+        </div>
+    </div>
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
+        <div class="block w-full overflow-x-auto">
+            <!-- Projects table -->
+            <table class="items-center w-full bg-transparent border-collapse">
+            <thead>
+                <tr>
+                <th
+                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                >
+                    Date
+                </th>
+                <th
+                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                >
+                    Amount
+                </th>
+                <th
+                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                >
+                    Type
+                </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>27 Jan 2024</td>
+                    <td>10.000</td>
+                    <td>Onlne</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>

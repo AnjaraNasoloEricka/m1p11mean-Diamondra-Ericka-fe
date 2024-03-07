@@ -4,6 +4,7 @@ export const environment = {
 };
 
 export const URL = {
-  baseUrl : "http://localhost:3000"
+  // baseUrl : "http://localhost:3001"
+  baseUrl : "https://m1p11mean-diamondra-ericka-be.vercel.app"
 }
 

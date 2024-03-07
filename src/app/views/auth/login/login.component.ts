@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { UserAuthService } from "src/app/services/auth/user-auth.service";
 import { Router } from "@angular/router";
+import { LogoutService } from "src/app/services/utils/logout.service";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -10,12 +11,13 @@ export class LoginComponent implements OnInit {
 
   formBuiled = new FormBuilder();
   loginForm: FormGroup = new FormGroup({
-    email: this.formBuiled.control("", [Validators.required, Validators.email, Validators.minLength(1)]),
-    password: this.formBuiled.control("", [Validators.required, Validators.minLength(1)]),
+    email: this.formBuiled.control("emp3@gmail.com", [Validators.required, Validators.email, Validators.minLength(1)]),
+    password: this.formBuiled.control("emp3;;;", [Validators.required, Validators.minLength(1)]),
   });
   error : string | undefined;
+  isLoading : boolean = false;
 
-  constructor(private userAuthService : UserAuthService, private router: Router) {}
+  constructor(private logoutService : LogoutService, private userAuthService : UserAuthService, private router: Router) {}
 
   /* check if form values are valid and return error if not*/
   checkFormValidity(){
@@ -36,21 +38,35 @@ export class LoginComponent implements OnInit {
   /* check if form values are valid */
 
   handleLogin(){
+    this.isLoading = true;
     this.userAuthService.signIn(this.loginForm.value).then((response) => {
       if(response.status === 200){
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        this.router.navigate(["/dashboard"]);
+        let user =response.data.user
+        localStorage.setItem("user", JSON.stringify(user));
+        if (user.role.label === "Customer"){
+          this.router.navigate(["/customer/home"]);
+          return;
+        }
+        if (user.role.label == "Employee"){
+          this.router.navigate(["/employee/dashboard"]);
+          return;
+        }
+        this.router.navigate(["/admin/dashboard"]);
+        return;
       }
-      else{
-        this.error = response.message;
-      }
+      this.error = response.message;
     })
     .catch((error) => {
       this.error = error.error.message;
+    })
+    .finally(() => {
+      this.isLoading = false;
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.logoutService.logout();
+  }
 
 }

@@ -1,0 +1,93 @@
+
+<div class="flex flex-wrap -mx-4">
+  <div
+  class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
+    <div class="container px-4 mx-auto mt-2 mb-1">
+      <div class="flex justify-between items-center flex-wrap">
+        <div class="col-span-10">
+          <label class="text-lg font-bold text-red-600">Our Services</label>
+        </div>
+        <div class="col-span-2 flex justify-end">
+          <app-service-modal (refreshData)="initServices()" [serviceType]="serviceType" ></app-service-modal>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-between items-center">
+    </div>
+  </div>
+
+  <div class="relative flex flex-col min-w-0 w-full mx-auto mb-6 shadow-lg rounded bg-white" >
+    <app-pageloader [isLoading]="isLoading"></app-pageloader>
+  </div>
+  <div
+  class="relative flex flex-col min-w-0 break-words w-full mb-6">
+    <div class="container px-4 mx-auto">
+      <div class="relative" *ngIf="(allServices.length !== 0)">
+        <input type="text" placeholder="Search services..." class="w-full py-2 pr-10 pl-4 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
+               (input)="search($event.target.value)">
+        <i class="absolute top-0 right-0 mt-3 mr-3 fas fa-search text-gray-400"></i>
+      </div>
+      
+      <div class="container mx-auto mb-6 bg-white rounded shadow-lg relative flex flex-col min-w-0 w-full" *ngIf="!isLoading && (allServices.length === 0 || filteredServices.length === 0)">
+        <div class="px-4">
+          <div class="flex flex-wrap">
+            <div class="w-full col-span-4 mt-4 px-4 flex-1">
+              <div class="max-w-sm rounded overflow-hidden flex items-center">
+                <div class="px-6 py-4">
+                  <div class="font-bold text-xl mb-2">No Services Found</div>
+                  <p class="text-base text-gray-700">
+                    No services found. Please add a service.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap">
+        <div class="w-full lg:w-4/12 px-4 mt-4" *ngFor="let service of getCurrentPageServices()">
+          <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+            <div class="relative">
+              <span class="absolute top-0 left-0 bg-black text-white px-2 py-1 text-xs">{{ service.duration * 1000 | date:'HH:mm' }}</span>
+              <img class="w-full h-21 object-cover" [src]="(service.imageUrl) ? service.imageUrl : 'assets/img/cover1.jpg'" alt="Sunset in the mountains">
+              <span class="absolute bottom-0 right-0 bg-green-500 text-white px-2 py-1 text-xs">{{ getServiceTypeLabel(service.serviceType) }}</span>
+            </div>
+            <div class="px-6 py-4">
+              <div class="font-bold text-xl mb-2">{{ service?.name }}</div>
+              <p class="text-gray-700 text-base">
+                {{ service.description }}
+              </p>
+              <div class="flex items-center mt-2">
+                <span class="text-gray-800 font-semibold mr-1">Prix :</span>
+                <span class="text-green-600 text-sm font-semibold">{{ service.price | number:'1.2-2' }} Ar</span>
+              </div>
+              <div class="flex items-center mt-1">
+                <span class="text-gray-800 font-semibold mr-1">Commission :</span>
+                <span class="text-red-600 text-sm font-semibold">{{ service.commissionRate }}%</span>
+              </div>
+            </div>
+            <div class="px-6 pt-4 pb-2 flex justify-between">
+              <app-service-modal buttonTypeValue="update" [service]="service" [serviceType]="serviceType" (refreshData)="initServices()"></app-service-modal>
+              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 text-sm rounded flex items-center" (click)="showDeleteConfirmation(service._id)">
+                <i class="fas fa-trash-alt mr-2"></i> Supprimer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Pagination -->
+    <div class="flex justify-center mt-4">
+      <button class="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded"
+              (click)="previousPage()" [disabled]="!isPreviousPageAvailable()" [class.opacity-50]="!isPreviousPageAvailable()">
+        Previous
+      </button>
+      <button class="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded ml-2"
+              (click)="nextPage()" [disabled]="!isNextPageAvailable()" [class.opacity-50]="!isNextPageAvailable()">
+        Next
+      </button>
+    </div>
+    <!-- Pagination -->
+  </div>
+</div>

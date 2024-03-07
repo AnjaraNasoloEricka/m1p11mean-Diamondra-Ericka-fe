@@ -1,0 +1,117 @@
+
+<div class="flex flex-wrap -mx-4">
+    <div
+    class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white py-3">
+      <div class="container px-4 mx-auto mt-2 mb-1">
+        <div class="flex justify-between items-center flex-wrap">
+          <div class="col-span-10">
+            <label class="text-lg font-bold text-red-600">Tasks</label>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-between items-center">
+      </div>
+    </div>
+  
+    <div class="relative flex flex-col min-w-0 w-full mx-auto mb-6 shadow-lg rounded bg-white" >
+      <app-pageloader [isLoading]="isLoading"></app-pageloader>
+    </div>
+    
+    <div class="relative flex flex-col min-w-0 w-full mx-auto mb-6" >
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="flex flex-col mr-4 w-full">
+              <h2 class="mb-2">
+                <span class="text-lg font-bold text-green-600">Comission: </span>
+                <span class="text-lg font-bold text-blueGray-500">${{commission | number}}</span></h2>
+              </div>
+            <div class="flex mr-4 w-full justify-end">
+              <label for="endDate" class="mb-2">Date:</label>
+              <input 
+                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring ease-linear transition-all duration-150"
+                type="date"
+                [(ngModel)]="taskDate" 
+                (change)="onTaskDateChange($event)"
+                id="endDate" 
+              />
+            </div>
+          </div>
+          <div *ngIf="error" class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-500">
+            <span class="text-xs inline-block align-middle mr-8">
+              <b class="capitalize">Error: </b> {{ error}}
+            </span>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <div class="example-container">
+                <h2 class="text-xl font-medium text-black mb-2">To do</h2>
+              
+                <div
+                  cdkDropList
+                  #todoList="cdkDropList"
+                  [cdkDropListData]="toCome"
+                  [cdkDropListConnectedTo]="[inProgressList, doneList]"
+                  class="example-list"
+                  (cdkDropListDropped)="drop($event)">
+              
+                  <div cdkDrag *ngFor="let appointment of toCome" [cdkDragData]="appointment" (click)="showDetail(appointment)" class="example-box bg-white shadow-md px-3 rounded-lg">
+                    <span class="text-xl font-semibold text-gray-800 mt-1">{{appointment.client.user.name}}</span>
+                    <p class="text-gray-700">{{appointment.startDateTime | date : "mediumDate"}}</p>
+                    <p class="text-gray-700">{{appointment.startDateTime | date : "mediumTime"}}</p>
+                    <p class="text-gray-700">
+                      <span *ngFor="let service of appointment.services; let j = index">
+                        {{ service.name }}{{ j < appointment.services.length - 1 ? ', ' : '' }}
+                      </span>
+                      </p>
+                      <p class="text-gray-700">Price: ${{appointment.totalPrice | number}}</p>                    
+                  </div>
+                </div>
+              </div>
+              <div class="example-container">
+                <h2 class="text-xl font-medium text-black mb-2">In progress</h2>
+              
+                <div
+                  cdkDropList
+                  #inProgressList="cdkDropList"
+                  [cdkDropListData]="inProgress"
+                  [cdkDropListConnectedTo]="[doneList]"
+                  class="example-list"
+                  (cdkDropListDropped)="drop($event)">
+                  <div cdkDrag *ngFor="let appointment of inProgress" [cdkDragData]="appointment" (click)="showDetail(appointment)" class="example-box bg-white shadow-md px-3 rounded-lg">
+                    <span class="text-xl font-semibold text-gray-800 mt-1">{{appointment.client.user.name}}</span>
+                    <p class="text-gray-700">{{appointment.startDateTime | date : "mediumDate"}}</p>
+                    <p class="text-gray-700">{{appointment.startDateTime | date : "mediumTime"}}</p>
+                    <p class="text-gray-700">
+                      <span *ngFor="let service of appointment.services; let j = index">
+                        {{ service.name }}{{ j < appointment.services.length - 1 ? ', ' : '' }}
+                      </span>
+                    </p>
+                    <p class="text-gray-700">Price: ${{appointment.totalPrice | number}}</p>                    
+                  </div>
+              </div>
+              </div>
+              <div class="example-container">
+                <h2 class="text-xl font-medium text-black mb-2">Done</h2>
+              
+                <div
+                  cdkDropList
+                  #doneList="cdkDropList"
+                  [cdkDropListData]="done"
+                  [cdkDropListConnectedTo]="[]"
+                  class="example-list"
+                  (cdkDropListDropped)="drop($event)">
+                  <div cdkDrag *ngFor="let appointment of done" [cdkDragData]="appointment" (click)="showDetail(appointment)" class="example-box bg-white shadow-md px-3 rounded-lg">
+                    <span class="text-xl font-semibold text-gray-800 mt-1">{{appointment.client.user.name}}</span>
+                    <p class="text-gray-700">{{appointment.startDateTime | date : "mediumDate"}}</p>
+                    <p class="text-gray-700">{{appointment.startDateTime | date : "mediumTime"}}</p>
+                    <p class="text-gray-700">
+                      <span *ngFor="let service of appointment.services; let j = index">
+                        {{ service.name }}{{ j < appointment.services.length - 1 ? ', ' : '' }}
+                      </span>
+                      </p>
+                    <p class="text-gray-700">Price: ${{appointment.totalPrice | number}}</p>                    
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+  

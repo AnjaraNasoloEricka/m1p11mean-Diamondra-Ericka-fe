@@ -45,25 +45,40 @@
             </div>
             <div class="text-center mt-6">
               <button
-                class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                 type="submit"
               >
-                Sign In
+                <i class='fas fa-spinner fa-spin text-xl' *ngIf="isLoading"></i>
+                <span *ngIf="!isLoading">Sign In</span>
               </button>
             </div>
           </form>
+          
           <div *ngIf="error" class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-500">
             <span class="text-xs inline-block align-middle mr-8">
               <b class="capitalize">Error: </b> {{ error}}
             </span>
-          </div>          
+          </div>
+
+          <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-lightBlue-500">
+            <span class="text-xs inline-block align-middle mr-8">
+              <b class="capitalize">admin : </b>
+              paradaise.glam@gmail.com
+              <b class="capitalize" > / password: </b> pGAdmin4;
+            </span>
+
+            <span class="text-xs inline-block align-middle mr-8 mt-3">
+              <b class="capitalize">Client : </b>
+              rambelosondidy@gmail.com
+              <b class="capitalize" > / password: </b> Diamondra13;
+            </span>
+
+          </div>
+
         </div>
       </div>
       <div class="flex flex-wrap mt-6 relative">
         <div class="w-1/2">
-          <a href="javascript:void(0)" class="text-blueGray-200">
-            <small>Forgot password?</small>
-          </a>
         </div>
         <div class="w-1/2 text-right">
           <a [routerLink]="['/auth/register']" class="text-blueGray-200">

@@ -1,0 +1,116 @@
+
+<div class="flex flex-wrap -mx-4">
+
+  <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
+      <div class="container px-4 mx-auto mt-2 mb-1">
+          <div class="flex justify-between items-center flex-wrap">
+          <div class="col-span-10">
+              <label class="text-lg font-bold text-red-600">Special Offer</label>
+          </div>
+          <div class="col-span-2 flex justify-end">
+            <app-specialoffer-modal [allServices]="allServices" (refreshData)="initSpecialOffer()"></app-specialoffer-modal>
+          </div>
+          </div>
+      </div>
+  </div>
+  <div class="relative flex flex-col min-w-0 w-full mx-auto mb-6 shadow-lg rounded bg-white" >
+      <app-pageloader [isLoading]="isLoading"></app-pageloader>
+  </div>
+  <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
+      <div class="block w-full overflow-x-auto">
+          <table class="items-center w-full bg-transparent border-collapse" [hidden]="isLoading">
+          <thead>
+              <tr>
+              <th
+                  class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+              >
+                  Start Date
+              </th>
+              <th
+                  class="align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+              >
+                  End Date
+              </th>
+              <th
+                  class="align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+              >
+                  No. services
+              </th>
+              <th
+                  class="align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+              >
+                  Reduction Type
+              </th>
+              <th
+                  class="align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+              >
+                  Reduction value
+              </th>
+              <th
+                  class="align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+              >
+                  Commission Rate
+              </th>
+              <th
+                  class="align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+              >
+                  Commission Value
+              </th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let offer of allSpecialOffer">
+              <th
+                  class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                  <span
+                  class="ml-3 font-bold text-blueGray-600"
+                  >
+                      {{ offer.startDate | date: 'dd/MM/yyyy'}}
+                  </span>
+              </th>
+              <td
+                  class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                      {{ offer.endDate | date: 'dd/MM/yyyy'}}
+              </td>
+              <td
+                  class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                      {{ offer.services.length }}
+              </td>
+              <td
+                  class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                  {{ offer.reductionType }}
+              </td>
+              <td
+              class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                  {{ offer.reductionValue }}
+              </td>
+              <td
+              class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                  {{ offer.commissionRate }}
+              </td>
+              <td
+              class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                  {{ offer.commissionValue }}
+              </td>
+              <td
+                  class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
+              >
+                  <app-detailspecialoffer-modal [specialOffer]="offer"></app-detailspecialoffer-modal>
+
+                  <button class="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="showDeleteConfirmation(offer._id)">
+                      <i class="fas fa-trash-alt"></i>
+                  </button>
+              </td>
+              </tr>
+          </tbody>
+          </table>
+      </div>
+  </div>
+</div>
