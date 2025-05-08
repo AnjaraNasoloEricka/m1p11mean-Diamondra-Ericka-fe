@@ -1,0 +1,97 @@
+
+<div class="flex flex-wrap -mx-4">
+
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
+        <div class="container px-4 mx-auto mt-2 mb-1">
+            <div class="flex justify-between items-center flex-wrap">
+            <div class="col-span-10">
+                <label class="text-lg font-bold text-red-600">Employees</label>
+            </div>
+            <div class="col-span-2 flex justify-end">
+                <app-employee-modal></app-employee-modal>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="relative flex flex-col min-w-0 w-full mx-auto mb-6 shadow-lg rounded bg-white" >
+        <app-pageloader [isLoading]="isLoading"></app-pageloader>
+    </div>
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
+        <div class="block w-full overflow-x-auto">
+            <!-- Projects table -->
+            <table class="items-center w-full bg-transparent border-collapse" [hidden]="isLoading">
+            <thead>
+                <tr>
+                <th
+                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                >
+                    Name
+                </th>
+                <th
+                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                >
+                    Email
+                </th>
+                <th
+                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                >
+                    Phone
+                </th>
+                <th
+                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                >
+                    Services
+                </th>
+                <th
+                    class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                ></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of allEmployees">
+                <th
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+                >
+                    <span
+                    class="ml-3 font-bold text-blueGray-600"
+                    >
+                        {{ employee.user.name }}
+                    </span>
+                </th>
+                <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                        {{ employee.user.email }}
+                </td>
+                <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                        {{ employee.user.phoneNumber }}
+                </td>
+                <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                    <div class="flex">
+                    <img
+                        *ngFor="let service of employee.services"
+                        src="{{service.image}}"
+                        alt="..."
+                        class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
+                    />
+                    </div>
+                </td>
+                <td
+                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
+                >
+                    <app-employee-modal buttonTypeValue="update" [employee]="employee" (refreshData)="initEmployees()"></app-employee-modal>
+
+                    <button class="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="showDeleteConfirmation()">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>

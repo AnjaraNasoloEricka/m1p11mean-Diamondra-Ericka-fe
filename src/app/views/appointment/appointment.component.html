@@ -1,0 +1,107 @@
+
+<div class="flex flex-wrap -mx-4">
+
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
+        <div class="container px-4 mx-auto mt-2 mb-1">
+            <div class="flex justify-between items-center flex-wrap">
+            <div class="col-span-10">
+                <label class="text-lg font-bold text-red-600">Appointments</label>
+            </div>
+            <div class="col-span-2 flex justify-end">
+                <app-appointment-modal (refreshData)="initAppointments()"></app-appointment-modal>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 ">
+      <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+        <div class="grid grid-cols-3 gap-4 mb-4">
+          <div class="flex flex-col mr-4 w-full">
+            <label for="startDate" class="mb-2">Start Date:</label>
+            <input 
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+              type="date" 
+              id="startDate" 
+              [(ngModel)]="startDate" 
+              (change)="onStartDateChange($event)"
+            />
+          </div>
+          <div class="flex flex-col mr-4 w-full">
+            <label for="endDate" class="mb-2">End Date:</label>
+            <input 
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+              type="date"
+              id="endDate" 
+              [(ngModel)]="endDate" 
+              (change)="onEndDateChange($event)"
+            />
+          </div>
+          <div class="flex flex-col">
+            <label for="state" class="mb-2">State:</label>
+            <select id="state" class="rounded border-0 px-3 py-3 bg-white shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" [(ngModel)]="selectedState" (change)="onStateChange($event)">
+              <option value="">All status</option>
+              <option value="toCome">TO COME</option>
+              <option value="inProgress">IN PROGRESS</option>
+              <option value="done">DONE</option>
+              </select>
+          </div>
+        </div>
+        <div class="relative flex flex-col min-w-0 w-full mx-auto mb-6 shadow-lg rounded bg-white" >
+          <app-pageloader [isLoading]="isLoading"></app-pageloader>
+        </div>
+        <div class="container mx-auto mb-6 bg-white rounded shadow-lg relative flex flex-col min-w-0 w-full" *ngIf="!isLoading && (appointments.length === 0 || filteredAppointments.length === 0)">
+          <div class="px-4">
+            <div class="flex flex-wrap">
+              <div class="w-full col-span-4 mt-4 px-4 flex-1">
+                <div class="max-w-sm rounded overflow-hidden flex items-center">
+                  <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2">No Appointments Found</div>
+                    <p class="text-base text-gray-700">
+                      No appointments found. Please create new appointment.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 gap-4 -my-6">
+          <div *ngFor="let appointment of getCurrentPageAppointments()" class="bg-white rounded shadow-md p-4 flex flex-3 justify-between" (click)="showDetail(appointment)">
+            <div>
+                <p>
+                  <span *ngFor="let service of appointment.services; let j = index" class="text-lg font-semibold text-gray-800 mt-1">
+                    {{ service.name }}{{ j < appointment.services.length - 1 ? ', ' : '' }}
+                  </span>
+                </p>
+                <p class="text-gray-800">{{ appointment?.startDateTime | date:'medium' }}</p>
+              </div>
+            <div>
+                <p class="text-gray-700"><span class="font-semibold">Employee: </span>{{ appointment.employee?.user.name}}</p>                       
+                <p class="text-gray-700"><span class="font-semibold">Price: </span> ${{appointment.totalPrice | number}}</p>                    
+            </div>
+            <div class="flex justify-end">
+              <i *ngIf="appointment.status == 'done'" class="fa fa-check text-green-600 text-xl"></i>           
+              <i *ngIf="appointment.status == 'inProgress'"class="fa fa-spinner text-orange-500 text-xl"></i>           
+              <i *ngIf="appointment.status == 'abort'" class="fa fa-ban text-red-500 text-xl"></i>           
+              <i *ngIf="appointment.status == 'toCome'" class="fa fa-calendar text-blue-500 text-xl"></i>           
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <!-- Pagination -->
+    <div class="flex justify-center mt-10">
+      <button class="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded"
+              (click)="previousPage()" [disabled]="!isPreviousPageAvailable()" [class.opacity-50]="!isPreviousPageAvailable()">
+        Previous
+      </button>
+      <button class="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded ml-2"
+              (click)="nextPage()" [disabled]="!isNextPageAvailable()" [class.opacity-50]="!isNextPageAvailable()">
+        Next
+      </button>
+    </div>
+    <!-- Pagination -->
+    </div>
+    
+</div>
